@@ -23,8 +23,8 @@ export const WhyLandsCo = () => {
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1920&q=80" 
-            alt="Industrial Yard" 
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80" 
+            alt="Professional Team" 
             className="w-full h-full object-cover opacity-20"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-landco-darker via-landco-dark/90 to-slate-50" />
