@@ -119,7 +119,7 @@ export const Hero = () => {
           {/* Location suggestions dropdown */}
           {showSuggestions && (
             <div 
-              className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-30 animate-fade-in-down"
+              className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-[60] animate-fade-in-down"
               onMouseLeave={() => setShowSuggestions(false)}
             >
               <div className="p-2">
