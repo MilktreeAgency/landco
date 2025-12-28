@@ -73,7 +73,7 @@ export const WhyLandsCo = () => {
       </section>
 
       {/* Stats Bar */}
-      <section className="relative -mt-20 z-20 max-w-6xl mx-auto px-6">
+      <section className="relative -mt-20 z-20 max-w-6xl mx-auto px-6 pb-[50px]">
         <GlassPanel className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8">
           <StatCard value={50} suffix="+" label="Active Yards" icon={<MapPin className="w-5 h-5 text-landco-yellow" />} />
           <StatCard value={98} suffix="%" label="Customer Satisfaction" icon={<Star className="w-5 h-5 text-landco-yellow" />} />
