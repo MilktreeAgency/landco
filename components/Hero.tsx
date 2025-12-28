@@ -70,8 +70,8 @@ export const Hero = () => {
       <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-landco-yellow/5 rounded-full blur-3xl animate-float opacity-30" style={{ animationDelay: '2s' }} />
 
       <div className="relative z-10 w-full max-w-6xl px-6 text-center">
-        {/* Pre-headline badge - Added 50px top padding on mobile */}
-        <div className={`pt-[50px] mb-8 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        {/* Pre-headline badge - Added extra padding for mobile devices */}
+        <div className={`pt-24 sm:pt-20 md:pt-16 mb-8 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm text-gray-300">
             <span className="w-2 h-2 rounded-full bg-landco-security animate-pulse" />
             <span className="font-medium">UK's Premier Open Storage Network</span>
