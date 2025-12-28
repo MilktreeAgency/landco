@@ -242,9 +242,9 @@ export const DepositPayment: React.FC<DepositPaymentProps> = ({
  */
 export const PaymentSuccessBanner: React.FC<{ onDismiss?: () => void }> = ({ onDismiss }) => {
   const [visible, setVisible] = useState(false);
-  const paymentStatus = getPaymentStatusFromUrl();
 
   useEffect(() => {
+    const paymentStatus = getPaymentStatusFromUrl();
     if (paymentStatus.status === 'success') {
       setVisible(true);
       // Clean URL
@@ -286,9 +286,9 @@ export const PaymentSuccessBanner: React.FC<{ onDismiss?: () => void }> = ({ onD
  */
 export const PaymentCancelledBanner: React.FC<{ onDismiss?: () => void }> = ({ onDismiss }) => {
   const [visible, setVisible] = useState(false);
-  const paymentStatus = getPaymentStatusFromUrl();
 
   useEffect(() => {
+    const paymentStatus = getPaymentStatusFromUrl();
     if (paymentStatus.status === 'cancelled') {
       setVisible(true);
       // Clean URL
@@ -325,4 +325,5 @@ export const PaymentCancelledBanner: React.FC<{ onDismiss?: () => void }> = ({ o
 };
 
 export default DepositPayment;
+
 

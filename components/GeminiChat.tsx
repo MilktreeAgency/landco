@@ -15,6 +15,14 @@ export const GeminiChat = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Sanitize input to prevent XSS - removes HTML tags and limits length
+  const sanitizeInput = (text: string): string => {
+    return text
+      .replace(/<[^>]*>/g, '') // Remove HTML tags
+      .trim()
+      .slice(0, 1000); // Limit message length
+  };
+
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([{
@@ -23,21 +31,22 @@ export const GeminiChat = () => {
         timestamp: new Date()
       }]);
     }
-  }, [isOpen]);
+  }, [isOpen, messages.length]);
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
   const handleSend = async () => {
-    if (!input.trim() || loading) return;
+    const sanitizedInput = sanitizeInput(input);
+    if (!sanitizedInput || loading) return;
 
-    const userMsg: ChatMessage = { role: 'user', text: input, timestamp: new Date() };
+    const userMsg: ChatMessage = { role: 'user', text: sanitizedInput, timestamp: new Date() };
     setMessages(prev => [...prev, userMsg]);
     setInput('');
     setLoading(true);
 
-    const responseText = await sendMessageToGemini(input);
+    const responseText = await sendMessageToGemini(sanitizedInput);
 
     const modelMsg: ChatMessage = { role: 'model', text: responseText, timestamp: new Date() };
     setMessages(prev => [...prev, modelMsg]);

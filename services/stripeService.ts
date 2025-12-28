@@ -127,3 +127,4 @@ export function getPaymentStatusFromUrl(): {
   return { status: null, sessionId: null };
 }
 
+

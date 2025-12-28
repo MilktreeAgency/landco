@@ -1,12 +1,26 @@
 import { GoogleGenAI, Chat, GenerateContentResponse } from "@google/genai";
 import { SYSTEM_INSTRUCTION_CONCIERGE } from "../constants";
 
+/**
+ * Gemini AI Service
+ * 
+ * Security Note: The API key is injected at build time via Vite's define config.
+ * In production, this key should have restricted quotas and domain restrictions
+ * configured in the Google Cloud Console to prevent abuse.
+ * 
+ * For enhanced security, consider:
+ * 1. Setting up a backend proxy endpoint
+ * 2. Implementing request rate limiting
+ * 3. Adding domain restrictions in Google Cloud Console
+ */
+
 let chatSession: Chat | null = null;
 
 const getAiClient = () => {
+  // API key is injected at build time - see vite.config.ts
   const apiKey = process.env.API_KEY;
   if (!apiKey) {
-    console.warn("API_KEY not found in environment variables. AI features will run in mock mode.");
+    console.warn("API_KEY not configured. AI features will run in mock mode.");
     return null;
   }
   return new GoogleGenAI({ apiKey });

@@ -1,6 +1,17 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import Stripe from 'stripe';
 
+/**
+ * Stripe Checkout Session API
+ * Creates a secure checkout session for deposit payments
+ * 
+ * Security Notes:
+ * - Rate limiting should be configured at Vercel/infrastructure level
+ * - Email validation is performed server-side
+ * - Amount validation prevents manipulation
+ * - Stripe handles PCI compliance
+ */
+
 // Initialize Stripe with secret key from environment
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
   apiVersion: '2023-10-16',

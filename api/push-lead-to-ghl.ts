@@ -8,6 +8,11 @@ import { createGHLContact, type GHLLeadData } from '../services/ghlService';
  * 1. Directly from the frontend after form submission
  * 2. From Formspree webhook
  * 3. From other automation systems
+ * 
+ * Security Notes:
+ * - Rate limiting should be configured at Vercel/infrastructure level
+ * - Email validation is performed server-side
+ * - All inputs are validated before processing
  */
 
 interface LeadRequestBody {
@@ -146,4 +151,5 @@ export default async function handler(
     return res.status(500).json({ error: 'Failed to process lead' });
   }
 }
+
 
