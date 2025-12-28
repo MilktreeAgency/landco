@@ -7,10 +7,14 @@ export const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isDashboard = location.pathname === '/dashboard';
+  const isHomePage = location.pathname === '/';
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [locationsOpen, setLocationsOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
+  
+  // Determine if navbar should use transparent styling (only on homepage when not scrolled)
+  const useTransparentNav = isHomePage && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,9 +54,9 @@ export const Navbar = () => {
   return (
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-lg border-b border-slate-200 shadow-sm' 
-          : 'bg-transparent border-b border-white/10'
+        useTransparentNav
+          ? 'bg-transparent border-b border-white/10'
+          : 'bg-white/95 backdrop-blur-lg border-b border-slate-200 shadow-sm' 
       }`}>
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo - switches between white and color */}
@@ -62,7 +66,7 @@ export const Navbar = () => {
               src="/logo-white.png" 
               alt="LANDCO Logo" 
               className={`h-12 w-auto group-hover:scale-105 transition-all duration-500 absolute ${
-                isScrolled ? 'opacity-0' : 'opacity-100'
+                useTransparentNav ? 'opacity-100' : 'opacity-0'
               }`}
             />
             {/* Color logo for scrolled state */}
@@ -70,7 +74,7 @@ export const Navbar = () => {
               src="/landco-logo-colour.png" 
               alt="LANDCO Logo" 
               className={`h-12 w-auto group-hover:scale-105 transition-all duration-500 ${
-                isScrolled ? 'opacity-100' : 'opacity-0'
+                useTransparentNav ? 'opacity-0' : 'opacity-100'
               }`}
             />
           </Link>
@@ -85,12 +89,12 @@ export const Navbar = () => {
                     onClick={(e) => handleDropdownClick(e, 'locations')}
                     className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                       locationsOpen 
-                        ? isScrolled 
-                          ? 'text-slate-900 bg-slate-100' 
-                          : 'text-white bg-white/20'
-                        : isScrolled
-                          ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                          : 'text-white/90 hover:text-white hover:bg-white/10'
+                        ? useTransparentNav
+                          ? 'text-white bg-white/20'
+                          : 'text-slate-900 bg-slate-100' 
+                        : useTransparentNav
+                          ? 'text-white/90 hover:text-white hover:bg-white/10'
+                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                     }`}
                   >
                     <MapPin className="w-4 h-4" />
@@ -140,12 +144,12 @@ export const Navbar = () => {
                     onClick={(e) => handleDropdownClick(e, 'solutions')}
                     className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                       solutionsOpen 
-                        ? isScrolled 
-                          ? 'text-slate-900 bg-slate-100' 
-                          : 'text-white bg-white/20'
-                        : isScrolled
-                          ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                          : 'text-white/90 hover:text-white hover:bg-white/10'
+                        ? useTransparentNav
+                          ? 'text-white bg-white/20'
+                          : 'text-slate-900 bg-slate-100' 
+                        : useTransparentNav
+                          ? 'text-white/90 hover:text-white hover:bg-white/10'
+                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                     }`}
                   >
                     SOLUTIONS
@@ -180,9 +184,9 @@ export const Navbar = () => {
                 <Link 
                   to="/sell-your-land" 
                   className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all border ${
-                    isScrolled
-                      ? 'bg-landco-security/10 text-landco-security hover:bg-landco-security/20 border-landco-security/20'
-                      : 'bg-white/10 text-white hover:bg-white/20 border-white/20'
+                    useTransparentNav
+                      ? 'bg-white/10 text-white hover:bg-white/20 border-white/20'
+                      : 'bg-landco-security/10 text-landco-security hover:bg-landco-security/20 border-landco-security/20'
                   }`}
                 >
                   <Banknote className="w-4 h-4" />
@@ -193,9 +197,9 @@ export const Navbar = () => {
                 <Link 
                   to="/why-landco" 
                   className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-                    isScrolled
-                      ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                      : 'text-white/90 hover:text-white hover:bg-white/10'
+                    useTransparentNav
+                      ? 'text-white/90 hover:text-white hover:bg-white/10'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
                   WHY LANDCO
@@ -205,9 +209,9 @@ export const Navbar = () => {
                 <a 
                   href="tel:+442380123456" 
                   className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-                    isScrolled
-                      ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                      : 'text-white/90 hover:text-white hover:bg-white/10'
+                    useTransparentNav
+                      ? 'text-white/90 hover:text-white hover:bg-white/10'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
                   <Phone className="w-4 h-4" />
@@ -227,9 +231,9 @@ export const Navbar = () => {
             <Link 
               to="/search" 
               className={`hidden lg:flex items-center gap-2 px-4 py-2 rounded-lg border transition-all ${
-                isScrolled
-                  ? 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-600 hover:text-slate-900'
-                  : 'bg-white/10 hover:bg-white/20 border-white/20 text-white'
+                useTransparentNav
+                  ? 'bg-white/10 hover:bg-white/20 border-white/20 text-white'
+                  : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-600 hover:text-slate-900'
               }`}
             >
               <Search className="w-4 h-4" />
@@ -268,9 +272,9 @@ export const Navbar = () => {
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className={`lg:hidden p-2 rounded-lg transition-colors ${
-                isScrolled
-                  ? 'hover:bg-slate-100 text-slate-700'
-                  : 'hover:bg-white/10 text-white'
+                useTransparentNav
+                  ? 'hover:bg-white/10 text-white'
+                  : 'hover:bg-slate-100 text-slate-700'
               }`}
             >
               {mobileMenuOpen ? (
