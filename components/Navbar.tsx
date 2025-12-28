@@ -49,18 +49,29 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled 
           ? 'bg-white/95 backdrop-blur-lg border-b border-slate-200 shadow-sm' 
-          : 'bg-white/90 backdrop-blur-lg border-b border-slate-200'
+          : 'bg-transparent border-b border-white/10'
       }`}>
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
+          {/* Logo - switches between white and color */}
+          <Link to="/" className="flex items-center gap-2 group relative">
+            {/* White logo for transparent state */}
+            <img 
+              src="/logo-white.png" 
+              alt="LANDCO Logo" 
+              className={`h-12 w-auto group-hover:scale-105 transition-all duration-500 absolute ${
+                isScrolled ? 'opacity-0' : 'opacity-100'
+              }`}
+            />
+            {/* Color logo for scrolled state */}
             <img 
               src="/landco-logo-colour.png" 
               alt="LANDCO Logo" 
-              className="h-12 w-auto group-hover:scale-105 transition-transform duration-300"
+              className={`h-12 w-auto group-hover:scale-105 transition-all duration-500 ${
+                isScrolled ? 'opacity-100' : 'opacity-0'
+              }`}
             />
           </Link>
 
@@ -74,8 +85,12 @@ export const Navbar = () => {
                     onClick={(e) => handleDropdownClick(e, 'locations')}
                     className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                       locationsOpen 
-                        ? 'text-slate-900 bg-slate-100' 
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                        ? isScrolled 
+                          ? 'text-slate-900 bg-slate-100' 
+                          : 'text-white bg-white/20'
+                        : isScrolled
+                          ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                          : 'text-white/90 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     <MapPin className="w-4 h-4" />
@@ -125,8 +140,12 @@ export const Navbar = () => {
                     onClick={(e) => handleDropdownClick(e, 'solutions')}
                     className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                       solutionsOpen 
-                        ? 'text-slate-900 bg-slate-100' 
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                        ? isScrolled 
+                          ? 'text-slate-900 bg-slate-100' 
+                          : 'text-white bg-white/20'
+                        : isScrolled
+                          ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                          : 'text-white/90 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     SOLUTIONS
@@ -160,7 +179,11 @@ export const Navbar = () => {
                 {/* Sell Your Land - Prominent CTA */}
                 <Link 
                   to="/sell-your-land" 
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold bg-landco-security/10 text-landco-security hover:bg-landco-security/20 transition-all border border-landco-security/20"
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all border ${
+                    isScrolled
+                      ? 'bg-landco-security/10 text-landco-security hover:bg-landco-security/20 border-landco-security/20'
+                      : 'bg-white/10 text-white hover:bg-white/20 border-white/20'
+                  }`}
                 >
                   <Banknote className="w-4 h-4" />
                   SELL YOUR LAND
@@ -169,7 +192,11 @@ export const Navbar = () => {
                 {/* Why Landco */}
                 <Link 
                   to="/why-landco" 
-                  className="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all"
+                  className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                    isScrolled
+                      ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      : 'text-white/90 hover:text-white hover:bg-white/10'
+                  }`}
                 >
                   WHY LANDCO
                 </Link>
@@ -177,7 +204,11 @@ export const Navbar = () => {
                 {/* Contact */}
                 <a 
                   href="tel:+442380123456" 
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all"
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                    isScrolled
+                      ? 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      : 'text-white/90 hover:text-white hover:bg-white/10'
+                  }`}
                 >
                   <Phone className="w-4 h-4" />
                   CONTACT
@@ -195,7 +226,11 @@ export const Navbar = () => {
             {/* Search button (desktop only - hidden below lg) */}
             <Link 
               to="/search" 
-              className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all text-slate-600 hover:text-slate-900"
+              className={`hidden lg:flex items-center gap-2 px-4 py-2 rounded-lg border transition-all ${
+                isScrolled
+                  ? 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-600 hover:text-slate-900'
+                  : 'bg-white/10 hover:bg-white/20 border-white/20 text-white'
+              }`}
             >
               <Search className="w-4 h-4" />
               <span className="text-sm font-medium">Search</span>
@@ -232,12 +267,16 @@ export const Navbar = () => {
             {/* Mobile menu button */}
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
+              className={`lg:hidden p-2 rounded-lg transition-colors ${
+                isScrolled
+                  ? 'hover:bg-slate-100 text-slate-700'
+                  : 'hover:bg-white/10 text-white'
+              }`}
             >
               {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-slate-700" />
+                <X className="w-6 h-6" />
               ) : (
-                <Menu className="w-6 h-6 text-slate-700" />
+                <Menu className="w-6 h-6" />
               )}
             </button>
           </div>
