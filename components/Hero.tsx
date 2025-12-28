@@ -119,10 +119,15 @@ export const Hero = () => {
           {/* Location suggestions dropdown */}
           {showSuggestions && (
             <div 
-              className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-[60] animate-fade-in-down"
+              className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-[9999] animate-fade-in-down backdrop-blur-none"
+              style={{ 
+                isolation: 'isolate',
+                backdropFilter: 'none',
+                WebkitBackdropFilter: 'none'
+              }}
               onMouseLeave={() => setShowSuggestions(false)}
             >
-              <div className="p-2">
+              <div className="p-2 bg-white">
                 <p className="text-xs text-slate-400 uppercase tracking-wider font-bold px-3 py-2">Popular Locations</p>
                 {filteredCities.map((city) => (
                   <button

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { GlassPanel, PrimaryButton, SecondaryButton, AnimatedCounter } from './ui/EliteComponents';
 import { 
-  MapPin, Phone, Mail, Upload, CheckCircle, ArrowRight, 
-  Banknote, Handshake, Clock, Shield, Building2, TrendingUp,
-  FileText, Camera, Ruler, Users, Zap, ChevronDown, ChevronRight,
-  Loader2, Check
+  MapPin, Phone, CheckCircle, ArrowRight, 
+  Banknote, Handshake, Clock, Shield, TrendingUp,
+  FileText, Camera, Users, ChevronDown,
+  Loader2, Check, AlertCircle
 } from 'lucide-react';
+import { submitLandForm, submitQuickContact } from '../services/formspreeService';
 
 interface LandSubmission {
   // Property Details
@@ -57,7 +58,19 @@ export const SellYourLand = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  
+  // Quick contact form state
+  const [quickFormData, setQuickFormData] = useState({
+    postcode: '',
+    landSize: '',
+    email: '',
+    interestedInLeaseback: false,
+  });
+  const [quickFormSubmitting, setQuickFormSubmitting] = useState(false);
+  const [quickFormSuccess, setQuickFormSuccess] = useState(false);
+  const [quickFormError, setQuickFormError] = useState<string | null>(null);
 
   const steps = [
     { title: 'Property Details', icon: <MapPin className="w-5 h-5" /> },
@@ -106,11 +119,43 @@ export const SellYourLand = () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setSubmitError(null);
+    
+    try {
+      const result = await submitLandForm(formData);
+      
+      if (result.ok) {
+        setIsSubmitted(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        setSubmitError(result.error || 'Submission failed. Please try again.');
+      }
+    } catch (error) {
+      setSubmitError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleQuickContactSubmit = async () => {
+    if (!quickFormData.email || !quickFormData.postcode) return;
+    
+    setQuickFormSubmitting(true);
+    setQuickFormError(null);
+    
+    try {
+      const result = await submitQuickContact(quickFormData);
+      
+      if (result.ok) {
+        setQuickFormSuccess(true);
+      } else {
+        setQuickFormError(result.error || 'Submission failed.');
+      }
+    } catch (error) {
+      setQuickFormError('An unexpected error occurred.');
+    } finally {
+      setQuickFormSubmitting(false);
+    }
   };
 
   const benefits = [
@@ -289,49 +334,94 @@ export const SellYourLand = () => {
             {/* Quick Contact Card */}
             <div className="hidden lg:block">
               <GlassPanel className="p-8 bg-white/95">
-                <h3 className="font-display font-bold text-xl text-slate-900 mb-6">Quick Enquiry</h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Property Postcode</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g. SO15 1AA"
-                      className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-landco-yellow"
-                    />
+                {quickFormSuccess ? (
+                  <div className="text-center py-8">
+                    <div className="w-16 h-16 bg-landco-security/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle className="w-8 h-8 text-landco-security" />
+                    </div>
+                    <h3 className="font-display font-bold text-xl text-slate-900 mb-2">Thank You!</h3>
+                    <p className="text-slate-500">We'll be in touch within 24 hours.</p>
                   </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Approx. Land Size</label>
-                    <select className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-landco-yellow bg-white">
-                      <option value="">Select size range</option>
-                      <option value="small">Under 5,000 sq ft</option>
-                      <option value="medium">5,000 - 20,000 sq ft</option>
-                      <option value="large">20,000 - 50,000 sq ft</option>
-                      <option value="xlarge">50,000+ sq ft</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Your Email</label>
-                    <input 
-                      type="email" 
-                      placeholder="you@company.com"
-                      className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-landco-yellow"
-                    />
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-landco-yellowLight rounded-lg border border-landco-yellow/20">
-                    <input type="checkbox" id="rentback-quick" className="w-5 h-5 accent-landco-yellow" />
-                    <label htmlFor="rentback-quick" className="text-sm text-slate-700">
-                      <span className="font-semibold">I'm interested in Sale & Leaseback</span>
-                      <br />
-                      <span className="text-slate-500">Sell and rent back immediately</span>
-                    </label>
-                  </div>
-                  <PrimaryButton className="w-full text-lg py-4">
-                    Request Callback
-                  </PrimaryButton>
-                  <p className="text-xs text-slate-400 text-center">
-                    Or call us directly: <a href="tel:+442380123456" className="text-landco-dark font-semibold">023 8012 3456</a>
-                  </p>
-                </div>
+                ) : (
+                  <>
+                    <h3 className="font-display font-bold text-xl text-slate-900 mb-6">Quick Enquiry</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-semibold text-slate-700 mb-2">Property Postcode</label>
+                        <input 
+                          type="text" 
+                          placeholder="e.g. SO15 1AA"
+                          value={quickFormData.postcode}
+                          onChange={(e) => setQuickFormData(prev => ({ ...prev, postcode: e.target.value }))}
+                          className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-landco-yellow"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-slate-700 mb-2">Approx. Land Size</label>
+                        <select 
+                          value={quickFormData.landSize}
+                          onChange={(e) => setQuickFormData(prev => ({ ...prev, landSize: e.target.value }))}
+                          className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-landco-yellow bg-white"
+                        >
+                          <option value="">Select size range</option>
+                          <option value="Under 5,000 sq ft">Under 5,000 sq ft</option>
+                          <option value="5,000 - 20,000 sq ft">5,000 - 20,000 sq ft</option>
+                          <option value="20,000 - 50,000 sq ft">20,000 - 50,000 sq ft</option>
+                          <option value="50,000+ sq ft">50,000+ sq ft</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-slate-700 mb-2">Your Email</label>
+                        <input 
+                          type="email" 
+                          placeholder="you@company.com"
+                          value={quickFormData.email}
+                          onChange={(e) => setQuickFormData(prev => ({ ...prev, email: e.target.value }))}
+                          className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-landco-yellow"
+                        />
+                      </div>
+                      <div className="flex items-center gap-3 p-4 bg-landco-yellowLight rounded-lg border border-landco-yellow/20">
+                        <input 
+                          type="checkbox" 
+                          id="rentback-quick" 
+                          checked={quickFormData.interestedInLeaseback}
+                          onChange={(e) => setQuickFormData(prev => ({ ...prev, interestedInLeaseback: e.target.checked }))}
+                          className="w-5 h-5 accent-landco-yellow" 
+                        />
+                        <label htmlFor="rentback-quick" className="text-sm text-slate-700">
+                          <span className="font-semibold">I'm interested in Sale & Leaseback</span>
+                          <br />
+                          <span className="text-slate-500">Sell and rent back immediately</span>
+                        </label>
+                      </div>
+                      
+                      {quickFormError && (
+                        <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">
+                          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                          {quickFormError}
+                        </div>
+                      )}
+                      
+                      <PrimaryButton 
+                        onClick={handleQuickContactSubmit}
+                        disabled={quickFormSubmitting || !quickFormData.postcode || !quickFormData.email}
+                        className="w-full text-lg py-4 flex items-center justify-center gap-2"
+                      >
+                        {quickFormSubmitting ? (
+                          <>
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            Submitting...
+                          </>
+                        ) : (
+                          'Request Callback'
+                        )}
+                      </PrimaryButton>
+                      <p className="text-xs text-slate-400 text-center">
+                        Or call us directly: <a href="tel:+442380123456" className="text-landco-dark font-semibold">023 8012 3456</a>
+                      </p>
+                    </div>
+                  </>
+                )}
               </GlassPanel>
             </div>
           </div>
@@ -783,6 +873,14 @@ export const SellYourLand = () => {
                     </div>
                   </div>
                 </div>
+              </div>
+            )}
+
+            {/* Error Display */}
+            {submitError && (
+              <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 px-4 py-3 rounded-lg mt-6">
+                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                {submitError}
               </div>
             )}
 

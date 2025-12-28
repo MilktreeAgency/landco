@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { LeadStep, LeadData, CITY_HUBS } from '../types';
 import { GlassPanel, PrimaryButton, SecondaryButton } from './ui/EliteComponents';
-import { Truck, Container, Box, Calendar, MapPin, CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
+import { Truck, Container, Box, Calendar, MapPin, CheckCircle, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { submitLeadForm } from '../services/formspreeService';
 
 export const LeadQualifier = () => {
   const [step, setStep] = useState<LeadStep>(LeadStep.TYPE);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const navigate = useNavigate();
   
   const [data, setData] = useState<LeadData>({
@@ -53,10 +55,28 @@ export const LeadQualifier = () => {
       return;
     }
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsSubmitting(false);
-    setShowResults(true);
+    setSubmitError(null);
+    
+    try {
+      const result = await submitLeadForm({
+        storageType: data.storageType,
+        size: data.size,
+        timeline: data.timeline,
+        location: data.location,
+        email: data.email,
+        source: 'Homepage Lead Qualifier',
+      });
+      
+      if (result.ok) {
+        setShowResults(true);
+      } else {
+        setSubmitError(result.error || 'Submission failed. Please try again.');
+      }
+    } catch (error) {
+      setSubmitError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const matchedProperties = CITY_HUBS.filter(city => 
@@ -347,6 +367,13 @@ export const LeadQualifier = () => {
                     )}
                   </PrimaryButton>
                 </div>
+
+                {submitError && (
+                  <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 px-4 py-3 rounded-lg">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                    {submitError}
+                  </div>
+                )}
 
                 <p className="text-xs text-slate-400 mt-4">
                   By continuing, you agree to our Terms & Privacy Policy
