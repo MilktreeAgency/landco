@@ -24,9 +24,9 @@ export const Footer = () => {
 
   return (
     <footer className="bg-slate-900 border-t border-slate-800">
-      {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+      {/* Main Footer - Mobile responsive */}
+      <div className="max-w-7xl mx-auto px-6 py-12 sm:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <img 
@@ -197,10 +197,10 @@ export const Footer = () => {
         </div>
       </div>
 
-      {/* Trust Badges Section */}
+      {/* Trust Badges Section - Mobile friendly */}
       <div className="border-t border-slate-800">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+        <div className="max-w-7xl mx-auto px-6 py-6 sm:py-8">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10">
             {trustBadges.map((badge, idx) => (
               <div 
                 key={idx}

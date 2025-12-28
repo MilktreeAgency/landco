@@ -250,16 +250,16 @@ export const SellYourLand = () => {
                 <TrendingUp className="w-4 h-4" /> ACTIVE LAND ACQUISITION PROGRAMME
               </span>
               
-              <h1 className="font-display font-black text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight">
+              <h1 className="font-display font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight">
                 Sell Your Land.<br />
                 <span className="text-landco-yellow">Unlock Your Capital.</span>
               </h1>
               
-              <p className="text-xl text-slate-300 mb-8 leading-relaxed">
+              <p className="text-lg sm:text-xl text-slate-300 mb-8 leading-relaxed">
                 Landco is actively acquiring industrial land across the UK. Get a competitive cash offer within 48 hours, with completion in as little as 14 days.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
+              <div className="flex flex-col sm:flex-row gap-4 mb-8 sm:mb-12">
                 <PrimaryButton 
                   onClick={() => document.getElementById('submission-form')?.scrollIntoView({ behavior: 'smooth' })}
                   className="text-lg px-8 py-4 flex items-center justify-center gap-2"
@@ -273,11 +273,11 @@ export const SellYourLand = () => {
                 </a>
               </div>
 
-              {/* Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {/* Stats - Mobile responsive */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                 {stats.map((stat, idx) => (
                   <div key={idx} className="text-center">
-                    <div className="text-2xl md:text-3xl font-display font-black text-white">
+                    <div className="text-2xl sm:text-2xl md:text-3xl font-display font-black text-white">
                       <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                     </div>
                     <p className="text-xs text-slate-400 uppercase tracking-wider font-medium mt-1">{stat.label}</p>
@@ -351,7 +351,7 @@ export const SellYourLand = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {benefits.map((benefit, idx) => (
               <div key={idx} className="text-center p-6">
                 <div className="w-16 h-16 bg-landco-yellow/10 rounded-2xl flex items-center justify-center mx-auto mb-4 text-landco-dark">
@@ -457,26 +457,26 @@ export const SellYourLand = () => {
           </div>
 
           <GlassPanel className="p-8 md:p-12">
-            {/* Progress Steps */}
-            <div className="flex justify-between mb-12">
+            {/* Progress Steps - Mobile friendly */}
+            <div className="flex justify-between mb-8 sm:mb-12 overflow-x-auto pb-2">
               {steps.map((step, idx) => (
-                <div key={idx} className="flex-1 relative">
+                <div key={idx} className="flex-1 relative min-w-[60px]">
                   <div className="flex flex-col items-center">
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 transition-all ${
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mb-2 transition-all ${
                       idx < currentStep 
                         ? 'bg-landco-security text-white' 
                         : idx === currentStep 
                           ? 'bg-landco-yellow text-landco-dark' 
                           : 'bg-slate-100 text-slate-400'
                     }`}>
-                      {idx < currentStep ? <Check className="w-5 h-5" /> : step.icon}
+                      {idx < currentStep ? <Check className="w-4 h-4 sm:w-5 sm:h-5" /> : step.icon}
                     </div>
-                    <span className={`text-xs font-semibold text-center hidden sm:block ${
+                    <span className={`text-[10px] sm:text-xs font-semibold text-center hidden sm:block ${
                       idx <= currentStep ? 'text-slate-900' : 'text-slate-400'
                     }`}>{step.title}</span>
                   </div>
                   {idx < steps.length - 1 && (
-                    <div className={`absolute top-6 left-1/2 w-full h-0.5 ${
+                    <div className={`absolute top-5 sm:top-6 left-1/2 w-full h-0.5 ${
                       idx < currentStep ? 'bg-landco-security' : 'bg-slate-200'
                     }`} />
                   )}

@@ -78,14 +78,14 @@ export const Hero = () => {
           </span>
         </div>
 
-        {/* Main headline */}
-        <h1 className={`font-display font-black text-5xl md:text-7xl lg:text-8xl tracking-tight text-white mb-6 transition-all duration-700 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        {/* Main headline - Optimized for mobile */}
+        <h1 className={`font-display font-black text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight text-white mb-6 transition-all duration-700 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           ELITE OPEN<br />
           <span className="text-gradient">STORAGE.</span>
         </h1>
 
-        {/* Subheadline */}
-        <p className={`text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto font-light leading-relaxed transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        {/* Subheadline - Better mobile sizing */}
+        <p className={`text-base sm:text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto font-light leading-relaxed transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           Secure, hardstanding industrial land for modern logistics infrastructure. 
           <span className="text-white font-medium"> Instant access. Flexible terms. No traditional lease delays.</span>
         </p>
@@ -99,7 +99,7 @@ export const Hero = () => {
             <input 
               type="text" 
               placeholder="Find a yard in Southampton, Portsmouth..." 
-              className="w-full bg-transparent border-none text-slate-900 text-lg px-4 py-3 focus:outline-none placeholder-slate-400 font-medium"
+              className="w-full bg-transparent border-none text-slate-900 text-base sm:text-lg px-4 py-3 focus:outline-none placeholder-slate-400 font-medium"
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);

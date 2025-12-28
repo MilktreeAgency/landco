@@ -95,9 +95,9 @@ export const PropertyDetails = () => {
         </div>
       </div>
 
-      {/* Hero Gallery */}
+      {/* Hero Gallery - Mobile optimized */}
       <div className={`max-w-7xl mx-auto px-6 mb-8 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-[500px]">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-[400px] md:h-[500px]">
           {/* Main Image */}
           <div 
             className="md:col-span-2 md:row-span-2 relative rounded-2xl overflow-hidden shadow-sm border border-slate-200 cursor-pointer group"
@@ -166,8 +166,8 @@ export const PropertyDetails = () => {
             </p>
           </div>
 
-          {/* Specs */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* Specs - Mobile responsive grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             <SpecCard icon={<Ruler className="w-6 h-6 text-landco-dark" />} label="Area" value={`${property.sqFt.toLocaleString()} sq ft`} />
             <SpecCard icon={<Shield className="w-6 h-6 text-landco-dark" />} label="Security" value={`Grade ${property.securityRating}`} />
             <SpecCard icon={<Truck className="w-6 h-6 text-landco-dark" />} label="Access" value="24/7 HGV" />

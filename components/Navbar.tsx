@@ -64,7 +64,7 @@ export const Navbar = () => {
             />
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Hidden on mobile/tablet, shown on large screens */}
           <div className="hidden lg:flex items-center gap-1">
             {!isDashboard ? (
               <>
@@ -191,29 +191,40 @@ export const Navbar = () => {
           </div>
 
           {/* Right side actions */}
-          <div className="flex items-center gap-3">
-            {/* Search button (desktop) */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Search button (desktop only - hidden below lg) */}
             <Link 
               to="/search" 
-              className="hidden md:flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all text-slate-600 hover:text-slate-900"
+              className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-all text-slate-600 hover:text-slate-900"
             >
               <Search className="w-4 h-4" />
               <span className="text-sm font-medium">Search</span>
             </Link>
 
-            {/* Login/Dashboard button */}
-            <Link to={isDashboard ? "/" : "/dashboard"}>
+            {/* Login/Dashboard button - Icon only on mobile */}
+            <Link to={isDashboard ? "/" : "/dashboard"} className="hidden lg:block">
               <button className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-landco-yellow hover:bg-landco-yellowHover transition-all shadow-sm hover:shadow-md group">
                 {isDashboard ? (
                   <>
                     <ShieldCheck className="w-4 h-4 text-landco-dark" />
-                    <span className="text-sm font-bold text-landco-dark hidden sm:inline">Site Secure</span>
+                    <span className="text-sm font-bold text-landco-dark">Site Secure</span>
                   </>
                 ) : (
                   <>
                     <User className="w-4 h-4 text-landco-dark" />
-                    <span className="text-sm font-bold text-landco-dark hidden sm:inline">Client Login</span>
+                    <span className="text-sm font-bold text-landco-dark">Client Login</span>
                   </>
+                )}
+              </button>
+            </Link>
+            
+            {/* Mobile Login button - Icon only */}
+            <Link to={isDashboard ? "/" : "/dashboard"} className="lg:hidden">
+              <button className="flex items-center justify-center w-10 h-10 rounded-lg bg-landco-yellow hover:bg-landco-yellowHover transition-all shadow-sm hover:shadow-md group">
+                {isDashboard ? (
+                  <ShieldCheck className="w-5 h-5 text-landco-dark" />
+                ) : (
+                  <User className="w-5 h-5 text-landco-dark" />
                 )}
               </button>
             </Link>
