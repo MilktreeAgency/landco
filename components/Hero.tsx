@@ -78,8 +78,8 @@ export const Hero = () => {
           </span>
         </div>
 
-        {/* Main headline - Optimized for mobile */}
-        <h1 className={`font-display font-black text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight text-white mb-6 transition-all duration-700 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        {/* Main headline - Larger on mobile */}
+        <h1 className={`font-display font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-white mb-6 transition-all duration-700 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           ELITE OPEN<br />
           <span className="text-gradient">STORAGE.</span>
         </h1>
