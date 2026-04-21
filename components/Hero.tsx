@@ -93,8 +93,9 @@ export const Hero = () => {
             </div>
           </div>
 
-          {/* Right: featured site card */}
-          <div className="lg:col-span-5">
+          {/* Right: featured site card — desktop only (avoids duplicating with the
+              full listing grid which now appears immediately below on mobile) */}
+          <div className="hidden lg:block lg:col-span-5">
             <Link
               to={`/property/${featured.id}`}
               className={`group block rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-xl hover:shadow-2xl transition-all duration-500 ${
