@@ -62,34 +62,34 @@ export const CITY_HUBS: CityHub[] = [
     name: 'Southampton',
     region: 'Hampshire',
     description: 'Strategic port access with M27 connectivity',
-    heroImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1920&q=80'
+    heroImage: '/property-imagery/millbrook-road/cover.jpg'
   },
   {
     slug: 'portsmouth',
     name: 'Portsmouth',
     region: 'Hampshire',
     description: 'Coastal logistics hub with naval heritage',
-    heroImage: 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1920&q=80'
+    heroImage: '/property-imagery/portsdown-main/cover.jpg'
   },
   {
     slug: 'yeovil',
     name: 'Yeovil',
     region: 'Somerset',
     description: 'Southwest gateway with strong road connectivity',
-    heroImage: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80'
+    heroImage: '/property-imagery/sherborne-house/cover.jpg'
   },
   {
     slug: 'salisbury',
     name: 'Salisbury',
     region: 'Wiltshire',
     description: 'Established commercial location with flexible land available',
-    heroImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80'
+    heroImage: '/property-imagery/coldharbour-lane/cover.jpg'
   },
   {
     slug: 'byfleet',
     name: 'Byfleet',
     region: 'Surrey',
     description: 'Roadside commercial sites with EV and parking potential',
-    heroImage: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1920&q=80'
+    heroImage: '/property-imagery/byfleet/cover.jpg'
   }
 ];
