@@ -39,9 +39,9 @@ export const ListingGrid = ({ limit, city, showHeading = true }: ListingGridProp
             <p className="text-slate-500 max-w-lg">High-capacity yards ready for immediate occupation. All sites feature 24/7 access and comprehensive security.</p>
           </div>
           <div className="flex gap-3">
-            <Link to="/search">
+            <Link to="/sites">
               <button className="flex items-center gap-2 px-6 py-3 rounded-lg border border-slate-200 hover:bg-white hover:shadow-md text-slate-700 transition-all font-semibold bg-white">
-                View All Locations <ArrowRight className="w-4 h-4" />
+                View All Sites <ArrowRight className="w-4 h-4" />
               </button>
             </Link>
           </div>
@@ -63,8 +63,8 @@ export const ListingGrid = ({ limit, city, showHeading = true }: ListingGridProp
       {yards.length === 0 && (
         <div className="text-center py-16">
           <p className="text-slate-500 text-lg">No properties available in this location.</p>
-          <Link to="/search" className="text-landco-dark font-semibold hover:underline mt-2 inline-block">
-            View all locations →
+          <Link to="/sites" className="text-landco-dark font-semibold hover:underline mt-2 inline-block">
+            View all sites →
           </Link>
         </div>
       )}

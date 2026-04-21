@@ -1,216 +1,163 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Search, MapPin, Shield, Zap, Infinity } from 'lucide-react';
-import { AnimatedCounter } from './ui/EliteComponents';
-import { useNavigate } from 'react-router-dom';
-import { HERO_STATS } from '../constants';
-import { CITY_HUBS } from '../types';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, MapPin, MessageSquare } from 'lucide-react';
+import { MOCK_YARDS } from '../constants';
 
+/**
+ * Light, approachable hero. Replaces the previous cinematic dark hero.
+ * Two-column layout on lg+: copy + CTAs on the left, featured property on the right.
+ * Stacks on mobile.
+ */
 export const Hero = () => {
-  const [searchTerm, setSearchTerm] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const navigate = useNavigate();
-  const searchContainerRef = useRef<HTMLDivElement>(null);
+  const featured = MOCK_YARDS[0];
 
   useEffect(() => {
-    // Trigger animations after mount
-    const timer = setTimeout(() => setIsLoaded(true), 100);
-    return () => clearTimeout(timer);
+    const t = setTimeout(() => setIsLoaded(true), 80);
+    return () => clearTimeout(t);
   }, []);
-
-  // Click outside handler to close dropdown
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
-        setShowSuggestions(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const handleSearch = () => {
-    if (searchTerm) {
-      const matchedCity = CITY_HUBS.find(city => 
-        city.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      if (matchedCity) {
-        navigate(`/yards-to-rent-${matchedCity.slug}`);
-        return;
-      }
-    }
-    navigate('/search');
-  };
-
-  const handleCitySelect = (slug: string) => {
-    navigate(`/yards-to-rent-${slug}`);
-    setShowSuggestions(false);
-  };
-
-  const filteredCities = searchTerm 
-    ? CITY_HUBS.filter(city => 
-        city.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        city.region.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : CITY_HUBS;
 
   return (
-    <section className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-x-hidden bg-gradient-hero">
-      {/* Cinematic Background */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=80" 
-          alt="Industrial Background" 
-          className="w-full h-full object-cover opacity-20 scale-105"
-        />
-        {/* Multi-layer gradient overlay */}
-        <div className="absolute inset-0 bg-landco-dark/70" />
-        <div className="absolute inset-0 bg-gradient-to-t from-landco-darker via-landco-dark/40 to-transparent" />
-        
-        {/* Animated grid pattern overlay */}
-        <div 
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px'
-          }}
-        />
-      </div>
+    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-white">
+      {/* Soft accent shapes */}
+      <div className="absolute -top-32 -right-32 w-96 h-96 bg-landco-yellow/15 rounded-full blur-3xl" />
+      <div className="absolute -bottom-40 -left-32 w-[28rem] h-[28rem] bg-landco-security/10 rounded-full blur-3xl" />
 
-      {/* Floating accent elements */}
-      <div className="absolute top-1/4 left-10 w-64 h-64 bg-landco-yellow/10 rounded-full blur-3xl animate-float opacity-50" />
-      <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-landco-yellow/5 rounded-full blur-3xl animate-float opacity-30" style={{ animationDelay: '2s' }} />
-
-      <div className="relative z-10 w-full max-w-6xl px-6 text-center">
-        {/* Pre-headline badge - Added extra padding for mobile devices */}
-        <div className={`pt-24 sm:pt-20 md:pt-16 mb-4 sm:mb-8 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm text-gray-300">
-            <span className="w-2 h-2 rounded-full bg-landco-security animate-pulse" />
-            <span className="font-medium">UK's Premier Open Storage Network</span>
-          </span>
-        </div>
-
-        {/* Main headline - Larger on mobile */}
-        <h1 className={`font-display font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-white mb-6 transition-all duration-700 delay-100 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          ELITE OPEN<br />
-          <span className="text-gradient">STORAGE.</span>
-        </h1>
-
-        {/* Subheadline - Better mobile sizing */}
-        <p className={`text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-12 max-w-2xl mx-auto font-light leading-relaxed transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          Secure, hardstanding industrial land for modern logistics infrastructure. 
-          <span className="text-white font-medium"> Instant access. Flexible terms. No traditional lease delays.</span>
-        </p>
-
-        {/* The "Google-Simple" Search */}
-        <div className={`relative max-w-2xl mx-auto mb-8 sm:mb-16 transition-all duration-700 delay-300 z-50 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} ref={searchContainerRef}>
-          <div className="relative z-50">
-            <div className="bg-white p-2 flex items-center shadow-2xl rounded-xl border border-white/10 relative z-10">
-              <div className="pl-4 text-slate-400">
-                <MapPin className="w-5 h-5" />
-              </div>
-              <input 
-                type="text" 
-                placeholder="Find a yard in Southampton, Portsmouth..." 
-                className="w-full bg-transparent border-none text-slate-900 text-base sm:text-lg px-4 py-3 focus:outline-none placeholder-slate-400 font-medium"
-                value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  setShowSuggestions(true);
-                }}
-                onFocus={() => setShowSuggestions(true)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              />
-              <button 
-                onClick={handleSearch}
-                className="bg-landco-yellow text-landco-dark p-3 rounded-lg hover:bg-landco-yellowHover transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
-              >
-                <Search className="w-6 h-6" />
-              </button>
+      <div className="relative max-w-7xl mx-auto px-6 pt-32 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          {/* Left: copy + CTAs */}
+          <div className="lg:col-span-7">
+            <div
+              className={`transition-all duration-700 ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 bg-white text-xs sm:text-sm font-semibold text-slate-600 mb-6 shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-landco-security animate-pulse" />
+                Sites available across South England
+              </span>
             </div>
 
-            {/* Location suggestions dropdown */}
-            {showSuggestions && (
-              <div 
-                className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-[999] animate-fade-in-down max-h-96 overflow-y-auto"
-                style={{
-                  backgroundColor: '#ffffff',
-                  isolation: 'isolate'
-                }}
-                onMouseDown={(e) => e.preventDefault()} // Prevent input blur on click
+            <h1
+              className={`font-display font-black text-5xl sm:text-6xl md:text-7xl tracking-tight text-slate-900 leading-[1.02] mb-6 transition-all duration-700 delay-100 ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              Land that{' '}
+              <span className="relative inline-block">
+                <span className="relative z-10">works.</span>
+                <span className="absolute left-0 right-0 bottom-1 h-3 bg-landco-yellow/60 -z-0 rounded-sm" />
+              </span>
+            </h1>
+
+            <p
+              className={`text-lg sm:text-xl text-slate-600 leading-relaxed max-w-xl mb-8 transition-all duration-700 delay-200 ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              Open storage, yards and commercial land — ready when you are. Move in the
+              same day. Flexible terms. No solicitor fees.
+            </p>
+
+            <div
+              className={`flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10 transition-all duration-700 delay-300 ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              <Link
+                to="/sites"
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-landco-yellow hover:bg-landco-yellowHover text-landco-dark font-bold text-base shadow-md hover:shadow-lg transition-all"
               >
-                {filteredCities.length > 0 ? (
-                  <div className="p-2">
-                    <p className="text-xs text-slate-400 uppercase tracking-wider font-bold px-3 py-2 bg-slate-50 rounded-lg mb-2">
-                      {searchTerm ? `Results for "${searchTerm}" (${filteredCities.length})` : 'Popular Locations'}
-                    </p>
-                    {filteredCities.map((city) => (
-                      <button
-                        key={city.slug}
-                        onClick={() => handleCitySelect(city.slug)}
-                        className="w-full flex items-center gap-3 px-3 py-3 hover:bg-slate-50 rounded-lg transition-colors text-left group"
-                      >
-                        <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center group-hover:bg-landco-yellow/20 transition-colors flex-shrink-0">
-                          <MapPin className="w-5 h-5 text-slate-400 group-hover:text-landco-dark" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-slate-900 truncate">{city.name}</p>
-                          <p className="text-sm text-slate-500 truncate">{city.region} • {city.description}</p>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="p-6 text-center">
-                    <p className="text-slate-500 mb-2">No locations found matching "{searchTerm}"</p>
-                    <button 
-                      onClick={() => {
-                        setSearchTerm('');
-                        setShowSuggestions(true);
-                      }}
-                      className="text-landco-dark font-semibold hover:underline"
-                    >
-                      Show all locations
-                    </button>
-                  </div>
-                )}
+                Browse available sites
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link
+                to="/enquire"
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-900 font-bold text-base border border-slate-200 hover:border-slate-300 transition-all"
+              >
+                <MessageSquare className="w-5 h-5" />
+                Make an enquiry
+              </Link>
+            </div>
+
+            <div
+              className={`flex flex-wrap items-center gap-6 sm:gap-10 text-sm transition-all duration-700 delay-400 ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              <Stat number="6" label="Active sites" />
+              <Divider />
+              <Stat number="4" label="Counties covered" />
+              <Divider />
+              <Stat number="80k+" label="Sq ft available" />
+            </div>
+          </div>
+
+          {/* Right: featured site card */}
+          <div className="lg:col-span-5">
+            <Link
+              to={`/property/${featured.id}`}
+              className={`group block rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-xl hover:shadow-2xl transition-all duration-500 ${
+                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
+              style={{ transitionDelay: '200ms' }}
+            >
+              <div className="relative h-72 sm:h-80 overflow-hidden">
+                <img
+                  src={featured.imageUrl}
+                  alt={featured.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute top-4 left-4">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur text-xs font-bold uppercase tracking-wider text-landco-security">
+                    <span className="w-1.5 h-1.5 rounded-full bg-landco-security animate-pulse" />
+                    Available now
+                  </span>
+                </div>
               </div>
-            )}
+              <div className="p-6">
+                <p className="text-xs font-bold uppercase tracking-wider text-landco-yellow/90 mb-1">
+                  Featured site
+                </p>
+                <h3 className="font-display font-bold text-xl text-slate-900 leading-tight mb-2">
+                  {featured.title}
+                </h3>
+                <p className="text-sm text-slate-500 flex items-center gap-1.5 mb-4">
+                  <MapPin className="w-4 h-4" />
+                  {featured.location}
+                </p>
+                <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                  <div>
+                    <p className="text-xs text-slate-400 uppercase tracking-wider font-bold">
+                      Availability
+                    </p>
+                    <p className="text-sm font-semibold text-slate-700">
+                      {featured.availability}
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-sm font-bold text-landco-dark group-hover:gap-2 transition-all">
+                    View
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
-
-        {/* Value Badges */}
-        <div className={`flex flex-wrap justify-center gap-3 md:gap-6 mb-8 sm:mb-16 transition-all duration-700 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <Badge icon={<Shield className="w-4 h-4 text-landco-security" />} text="SECURE SITES" delay="stagger-1" />
-          <Badge icon={<Zap className="w-4 h-4 text-landco-yellow" />} text="IMMEDIATE START" delay="stagger-2" />
-          <Badge icon={<Infinity className="w-4 h-4 text-blue-400" />} text="FLEXIBLE TERMS" delay="stagger-3" />
-        </div>
-
-        {/* Stats Row */}
-        <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto transition-all duration-700 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          {HERO_STATS.map((stat, idx) => (
-            <div key={idx} className="text-center">
-              <div className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-1">
-                <AnimatedCounter 
-                  value={stat.value} 
-                  suffix={stat.suffix}
-                  decimals={stat.value % 1 !== 0 ? 1 : 0}
-                />
-              </div>
-              <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">{stat.label}</p>
-            </div>
-          ))}
-        </div>
       </div>
-
     </section>
   );
 };
 
-const Badge = ({ icon, text, delay }: { icon: React.ReactNode; text: string; delay?: string }) => (
-  <div className={`flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 cursor-default ${delay}`}>
-    {icon}
-    <span className="text-xs font-bold tracking-wider text-gray-300">{text}</span>
+const Stat = ({ number, label }: { number: string; label: string }) => (
+  <div>
+    <p className="font-display font-black text-2xl sm:text-3xl text-slate-900 leading-none">
+      {number}
+    </p>
+    <p className="text-xs sm:text-sm text-slate-500 uppercase tracking-wider font-medium mt-1">
+      {label}
+    </p>
   </div>
 );
+
+const Divider = () => <span className="hidden sm:block h-8 w-px bg-slate-200" />;

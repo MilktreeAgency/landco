@@ -42,8 +42,8 @@ export const CityHub = () => {
           <MapPin className="w-16 h-16 text-slate-300 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-slate-900 mb-2">Location Not Found</h1>
           <p className="text-slate-500 mb-6">We couldn't find yards in this location.</p>
-          <Link to="/search">
-            <PrimaryButton>View All Locations</PrimaryButton>
+          <Link to="/locations">
+            <PrimaryButton>View all locations</PrimaryButton>
           </Link>
         </div>
       </div>
@@ -66,8 +66,8 @@ export const CityHub = () => {
 
         <div className={`relative z-10 max-w-7xl mx-auto px-6 pt-16 pb-8 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Breadcrumb */}
-          <Link 
-            to="/search" 
+          <Link
+            to="/locations"
             className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm mb-8 group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -178,12 +178,14 @@ export const CityHub = () => {
                 Our team can help you find the perfect storage solution across our UK-wide network.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <PrimaryButton className="flex items-center justify-center gap-2">
-                  <Truck className="w-5 h-5" /> Speak to an Expert
-                </PrimaryButton>
-                <Link to="/search">
+                <Link to="/enquire">
+                  <PrimaryButton className="flex items-center justify-center gap-2">
+                    <Truck className="w-5 h-5" /> Make an enquiry
+                  </PrimaryButton>
+                </Link>
+                <Link to="/sites">
                   <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-white/20 text-white font-semibold hover:bg-white/10 transition-colors">
-                    View All Locations <ChevronRight className="w-4 h-4" />
+                    View all sites <ChevronRight className="w-4 h-4" />
                   </button>
                 </Link>
               </div>

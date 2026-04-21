@@ -84,60 +84,60 @@ export const Footer = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <Link 
-                  to="/search"
+                <Link
+                  to="/sites"
                   className="text-slate-400 hover:text-white transition-colors text-sm"
                 >
-                  Search Properties
+                  Available Sites
                 </Link>
               </li>
               <li>
-                <Link 
-                  to="/sell-your-land"
+                <Link
+                  to="/permitted-uses"
+                  className="text-slate-400 hover:text-white transition-colors text-sm"
+                >
+                  Permitted Uses
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/terms-and-costs"
+                  className="text-slate-400 hover:text-white transition-colors text-sm"
+                >
+                  Terms &amp; Costs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/locations"
+                  className="text-slate-400 hover:text-white transition-colors text-sm"
+                >
+                  Locations
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/land-wanted"
                   className="text-landco-security hover:text-landco-security/80 transition-colors text-sm font-semibold"
                 >
-                  Sell Your Land
+                  Land Wanted
                 </Link>
               </li>
               <li>
-                <Link 
-                  to="/dashboard"
+                <Link
+                  to="/about"
                   className="text-slate-400 hover:text-white transition-colors text-sm"
                 >
-                  Client Portal
+                  About
                 </Link>
               </li>
               <li>
-                <a 
-                  href="#"
+                <Link
+                  to="/enquire"
                   className="text-slate-400 hover:text-white transition-colors text-sm"
                 >
-                  About Landco
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#"
-                  className="text-slate-400 hover:text-white transition-colors text-sm"
-                >
-                  Investor Relations
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#"
-                  className="text-slate-400 hover:text-white transition-colors text-sm"
-                >
-                  Careers
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#"
-                  className="text-slate-400 hover:text-white transition-colors text-sm"
-                >
-                  Contact Us
-                </a>
+                  Enquire
+                </Link>
               </li>
             </ul>
           </div>

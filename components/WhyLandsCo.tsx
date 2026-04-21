@@ -55,14 +55,14 @@ export const WhyLandsCo = () => {
           {/* CTA Buttons */}
           <div className={`flex flex-wrap justify-center gap-4 transition-all duration-700 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <button
-              onClick={() => navigate('/search')}
+              onClick={() => navigate('/sites')}
               className="bg-landco-yellow text-landco-dark font-display font-bold px-8 py-4 rounded-lg hover:scale-105 hover:bg-landco-yellowHover transition-all duration-200 shadow-lg flex items-center gap-2"
             >
               Find Your Yard
               <ArrowRight className="w-5 h-5" />
             </button>
             <button
-              onClick={() => navigate('/sell-your-land')}
+              onClick={() => navigate('/land-wanted')}
               className="bg-white/10 backdrop-blur-sm text-white border border-white/20 font-display font-bold px-8 py-4 rounded-lg hover:bg-white/20 transition-all duration-200 flex items-center gap-2"
             >
               List Your Land
@@ -306,7 +306,7 @@ export const WhyLandsCo = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <button
-              onClick={() => navigate('/search')}
+              onClick={() => navigate('/sites')}
               className="bg-landco-yellow text-landco-dark font-display font-bold px-10 py-5 rounded-lg hover:scale-105 hover:bg-landco-yellowHover transition-all duration-200 shadow-2xl flex items-center gap-2 text-lg"
             >
               Browse Available Yards

@@ -4,7 +4,6 @@ import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 interface Testimonial {
   id: number;
   name: string;
-  avatar: string;
   rating: number;
   date: string;
   text: string;
@@ -14,58 +13,52 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "James Mitchell",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+    name: 'James Mitchell',
     rating: 5,
-    date: "2 weeks ago",
-    text: "Exceptional service from start to finish. The Lands Co team helped us find the perfect yard for our construction business in Southampton. The site manager is always available and the facilities are top-notch. Highly recommended!",
-    businessType: "Construction Company Owner"
+    date: '2 weeks ago',
+    text: 'Exceptional service from start to finish. The Landco team helped us find the perfect yard for our construction business in Southampton. The site manager is always available and the facilities are top-notch. Highly recommended.',
+    businessType: 'Construction Company Owner',
   },
   {
     id: 2,
-    name: "Sarah Thompson",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+    name: 'Sarah Thompson',
     rating: 5,
-    date: "1 month ago",
-    text: "We've been renting from Lands Co for over a year now and couldn't be happier. The security is excellent, the location is perfect for our logistics operations, and the process was incredibly smooth. Worth every penny!",
-    businessType: "Logistics Manager"
+    date: '1 month ago',
+    text: "We've been renting from Landco for over a year now and couldn't be happier. The security is excellent, the location is perfect for our logistics operations, and the process was incredibly smooth.",
+    businessType: 'Logistics Manager',
   },
   {
     id: 3,
-    name: "David Richardson",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+    name: 'David Richardson',
     rating: 5,
-    date: "3 weeks ago",
-    text: "Outstanding experience! The viewing process was seamless, and they understood exactly what we needed for our plant machinery storage. The site is secure, well-maintained, and the access is brilliant. Can't fault them.",
-    businessType: "Plant Hire Director"
+    date: '3 weeks ago',
+    text: 'Outstanding experience. The viewing process was seamless, and they understood exactly what we needed for our plant machinery storage. The site is secure, well-maintained, and the access is brilliant.',
+    businessType: 'Plant Hire Director',
   },
   {
     id: 4,
-    name: "Emma Clarke",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emma",
+    name: 'Emma Clarke',
     rating: 5,
-    date: "2 months ago",
-    text: "Professional, responsive, and genuinely helpful. We needed space urgently for our fleet and Lands Co delivered. The whole team went above and beyond to accommodate our timeline. First-class service all around!",
-    businessType: "Fleet Operations Manager"
+    date: '2 months ago',
+    text: 'Professional, responsive, and genuinely helpful. We needed space urgently for our fleet and Landco delivered. The whole team went above and beyond to accommodate our timeline.',
+    businessType: 'Fleet Operations Manager',
   },
   {
     id: 5,
-    name: "Michael Bennett",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",
+    name: 'Michael Bennett',
     rating: 5,
-    date: "1 week ago",
-    text: "After looking at several options, Lands Co stood out for their transparency and quality. The yard we rent in Portsmouth is perfect for our needs. Great communication and no hidden surprises. Definitely recommend!",
-    businessType: "Scaffolding Business Owner"
+    date: '1 week ago',
+    text: 'After looking at several options, Landco stood out for their transparency and quality. The yard we rent in Portsmouth is perfect for our needs. Great communication and no hidden surprises.',
+    businessType: 'Scaffolding Business Owner',
   },
   {
     id: 6,
-    name: "Rachel Foster",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rachel",
+    name: 'Rachel Foster',
     rating: 5,
-    date: "3 weeks ago",
-    text: "Brilliant service! We needed secure storage for our vehicles and equipment, and Lands Co provided exactly what we were looking for. The site is immaculate, and the team is always just a phone call away. Very impressed!",
-    businessType: "Transport Manager"
-  }
+    date: '3 weeks ago',
+    text: 'Brilliant service. We needed secure storage for our vehicles and equipment, and Landco provided exactly what we were looking for. The site is immaculate, and the team is always just a phone call away.',
+    businessType: 'Transport Manager',
+  },
 ];
 
 const GoogleIcon = () => (
@@ -161,11 +154,9 @@ export const Testimonials: React.FC = () => {
               >
                 {/* Header */}
                 <div className="flex items-start gap-3 mb-4">
-                  <img
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    className="w-12 h-12 rounded-full border-2 border-slate-100"
-                  />
+                  <div className="w-11 h-11 rounded-full bg-landco-yellowLight text-landco-dark flex items-center justify-center font-display font-black text-lg flex-shrink-0">
+                    {testimonial.name.charAt(0)}
+                  </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-bold text-slate-900 truncate">
                       {testimonial.name}
@@ -228,7 +219,7 @@ export const Testimonials: React.FC = () => {
         {/* CTA */}
         <div className="text-center mt-10">
           <p className="text-slate-600 mb-4">
-            Join hundreds of satisfied businesses trusting Lands Co
+            Join hundreds of operators who trust Landco for their yards and storage
           </p>
           <a
             href="https://www.google.com/maps/place/Landco"

@@ -176,7 +176,7 @@ export const LeadQualifier = () => {
               We've sent the details to <span className="font-semibold text-slate-600">{data.email}</span>
             </p>
 
-            <SecondaryButton onClick={() => navigate('/search')} className="mx-auto">
+            <SecondaryButton onClick={() => navigate('/sites')} className="mx-auto">
               View All Properties
             </SecondaryButton>
           </GlassPanel>

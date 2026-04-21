@@ -86,8 +86,8 @@ export const PropertyDetails = () => {
     <div className="pt-20 min-h-screen bg-slate-50 pb-20">
       {/* Breadcrumb / Nav */}
       <div className={`max-w-7xl mx-auto px-6 py-6 flex justify-between items-center transition-all duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-        <Link to="/search" className="text-slate-500 hover:text-slate-900 flex items-center gap-2 text-sm font-medium group">
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Search
+        <Link to="/sites" className="text-slate-500 hover:text-slate-900 flex items-center gap-2 text-sm font-medium group">
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to all sites
         </Link>
         <div className="flex items-center gap-3">
           <button className="text-slate-500 hover:text-slate-900 flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded-lg hover:bg-white transition-colors">

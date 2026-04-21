@@ -27,17 +27,18 @@ export const SellLandCTA = () => {
           {/* Left Content */}
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-landco-security/30 bg-landco-security/10 text-sm text-landco-security font-bold mb-6">
-              <TrendingUp className="w-4 h-4" /> ACTIVE ACQUISITION PROGRAMME
+              <TrendingUp className="w-4 h-4" /> LAND WANTED — ACTIVELY BUYING
             </div>
-            
+
             <h2 className="font-display font-black text-3xl md:text-4xl lg:text-5xl text-white mb-6 leading-tight">
-              Own Industrial Land?<br />
-              <span className="text-landco-yellow">We're Buying.</span>
+              Got land that could<br />
+              <span className="text-landco-yellow">work harder?</span>
             </h2>
-            
+
             <p className="text-lg text-slate-300 mb-8 leading-relaxed max-w-xl">
-              Landco is actively acquiring yards, hardstanding, and industrial land across the UK. 
-              Get a competitive cash offer and complete in as little as 14 days.
+              We're actively buying yards, hardstanding and commercial land across South
+              England. Sale-and-leaseback also available — keep operating while unlocking
+              capital.
             </p>
 
             {/* Benefits */}
@@ -55,7 +56,7 @@ export const SellLandCTA = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/sell-your-land">
+              <Link to="/land-wanted">
                 <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-landco-yellow hover:bg-landco-yellowHover text-landco-dark font-bold rounded-xl transition-all shadow-lg hover:shadow-xl group">
                   <Banknote className="w-5 h-5" />
                   Get a Valuation

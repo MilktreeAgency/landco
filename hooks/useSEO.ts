@@ -100,23 +100,58 @@ export const useSEO = (config: SEOConfig) => {
  */
 export const SEO_CONFIG = {
   home: {
-    title: 'Yards to Rent | Industrial Land & Open Storage | Landco',
-    description: 'Commercial land and open storage to rent across South England. Southampton, Portsmouth, Yeovil, Salisbury and more. Flexible terms, immediate availability.',
+    title: 'Land that Works | Yards & Open Storage to Rent | Landco',
+    description: 'Yards, hardstanding and open storage land to rent across South England. Move in same day, no solicitor fees, flexible terms. Landco — land that works.',
     canonicalPath: '/',
     keywords: ['yards to rent', 'industrial land', 'open storage', 'hardstanding', 'HGV parking', 'container storage', 'Southampton', 'Hampshire']
   },
-  
-  search: {
-    title: 'Find a Yard | Search Industrial Land to Rent | Landco',
-    description: 'Search available industrial yards, hardstanding, and open storage across South England. Filter by size, location, and features. Instant availability.',
-    canonicalPath: '/#/search',
-    keywords: ['find a yard', 'search industrial land', 'available yards', 'storage search', 'industrial property search']
+
+  sites: {
+    title: 'Available Sites | Yards & Open Storage to Rent | Landco',
+    description: 'Browse available yards, hardstanding and open storage land across South England. Each site can be inspected and reserved in days, not months.',
+    canonicalPath: '/#/sites',
+    keywords: ['available yards', 'sites to rent', 'commercial land available', 'open storage availability']
   },
-  
-  sellYourLand: {
-    title: 'Sell Your Land | We Buy Industrial Sites | Landco',
-    description: 'Sell your industrial land to Landco. Competitive cash offers within 48 hours. Sale and leaseback available. Complete in as little as 14 days.',
-    canonicalPath: '/#/sell-your-land',
+
+  permittedUses: {
+    title: 'Permitted Uses | What Our Sites Are For | Landco',
+    description: 'Vehicle storage, plant & machinery, container storage, trade compounds, vehicle sales — see what you can do with our yards and open storage land.',
+    canonicalPath: '/#/permitted-uses',
+    keywords: ['yard permitted uses', 'open storage uses', 'commercial land uses', 'HGV storage', 'plant storage']
+  },
+
+  termsAndCosts: {
+    title: 'Terms & Costs | Simple Licence Agreements | Landco',
+    description: 'Modern licence agreements — no solicitor fees, no long lock-ins, no hidden costs. See how Landco compares to a traditional commercial lease.',
+    canonicalPath: '/#/terms-and-costs',
+    keywords: ['licence vs lease', 'commercial land terms', 'open storage licence', 'no solicitor fees']
+  },
+
+  locations: {
+    title: 'Locations | Yards Across South England | Landco',
+    description: 'Landco operates yards and open storage sites across Hampshire, Wiltshire, Somerset and Surrey. Browse every location.',
+    canonicalPath: '/#/locations',
+    keywords: ['yard locations', 'south england commercial land', 'Hampshire yards', 'Wiltshire yards']
+  },
+
+  about: {
+    title: 'About Landco | Land That Works | Landco',
+    description: 'Landco owns and operates yards, hardstanding and open storage across South England — built around how operators actually want to work.',
+    canonicalPath: '/#/about',
+    keywords: ['about landco', 'landco company', 'commercial land specialist UK']
+  },
+
+  enquire: {
+    title: 'Enquire | Get in Touch with Landco',
+    description: 'Send Landco an enquiry about yards, open storage or land for sale. We respond the same working day.',
+    canonicalPath: '/#/enquire',
+    keywords: ['contact landco', 'enquire yards', 'commercial land enquiry']
+  },
+
+  landWanted: {
+    title: 'Land Wanted | We Buy Yards & Commercial Land | Landco',
+    description: 'Landco is actively buying yards, hardstanding and commercial land across South England. Cash offers in 48 hours. Sale-and-leaseback available.',
+    canonicalPath: '/#/land-wanted',
     keywords: ['sell industrial land', 'sell my yard', 'land buyers UK', 'sale and leaseback', 'sell commercial land']
   },
   
