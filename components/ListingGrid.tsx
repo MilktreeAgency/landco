@@ -38,7 +38,7 @@ export const ListingGrid = ({ limit, city, showHeading = true }: ListingGridProp
             <h2 className="font-display font-black text-3xl md:text-4xl text-slate-900 mb-2">Available Infrastructure</h2>
             <p className="text-slate-500 max-w-lg">High-capacity yards ready for immediate occupation. All sites feature 24/7 access and comprehensive security.</p>
           </div>
-          <div className="flex gap-3">
+          <div className="hidden md:flex gap-3">
             <Link to="/sites">
               <button className="flex items-center gap-2 px-6 py-3 rounded-lg border border-slate-200 hover:bg-white hover:shadow-md text-slate-700 transition-all font-semibold bg-white">
                 View All Sites <ArrowRight className="w-4 h-4" />
@@ -59,6 +59,16 @@ export const ListingGrid = ({ limit, city, showHeading = true }: ListingGridProp
           />
         ))}
       </div>
+
+      {showHeading && yards.length > 0 && (
+        <div className="md:hidden mt-8 flex justify-center">
+          <Link to="/sites" className="w-full">
+            <button className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-lg border border-slate-200 hover:bg-white hover:shadow-md text-slate-700 transition-all font-semibold bg-white">
+              View All Sites <ArrowRight className="w-4 h-4" />
+            </button>
+          </Link>
+        </div>
+      )}
 
       {yards.length === 0 && (
         <div className="text-center py-16">
