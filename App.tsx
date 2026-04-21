@@ -34,7 +34,7 @@ const LandingPage = () => {
     <>
       <Hero />
       <TrustStrip />
-      <ListingGrid limit={3} />
+      <ListingGrid />
       <Testimonials />
       <SellLandCTA />
       <Footer />
