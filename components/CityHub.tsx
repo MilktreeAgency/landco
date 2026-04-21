@@ -34,7 +34,6 @@ export const CityHub = () => {
 
   const cityYards = city ? MOCK_YARDS.filter(y => y.city.toLowerCase() === city.toLowerCase()) : [];
   const availableCount = cityYards.filter(y => y.available).length;
-  const totalSqFt = cityYards.reduce((acc, y) => acc + y.sqFt, 0);
 
   if (!cityData) {
     return (
@@ -111,10 +110,9 @@ export const CityHub = () => {
               highlight
             />
             <StatCard 
-              value={totalSqFt} 
-              label="Sq Ft Available"
+              value={cityYards.length} 
+              label="Total Listings"
               icon={<Grid3X3 className="w-5 h-5" />}
-              format
             />
             <StatCard 
               value={24} 

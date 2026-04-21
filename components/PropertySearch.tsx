@@ -7,12 +7,8 @@ import { Search, SlidersHorizontal, Map, Grid3X3, ChevronDown, X } from 'lucide-
 type ViewMode = 'grid' | 'map';
 
 interface FilterState {
-  minSize: number;
-  maxSize: number;
-  minPrice: number;
-  maxPrice: number;
   available: boolean | null;
-  securityRating: string[];
+  useType: string;
 }
 
 export const PropertySearch = () => {
@@ -20,21 +16,13 @@ export const PropertySearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
-    minSize: 0,
-    maxSize: 50000,
-    minPrice: 0,
-    maxPrice: 10000,
     available: null,
-    securityRating: []
+    useType: ''
   });
 
   const activeFilterCount = [
-    filters.minSize > 0,
-    filters.maxSize < 50000,
-    filters.minPrice > 0,
-    filters.maxPrice < 10000,
     filters.available !== null,
-    filters.securityRating.length > 0
+    filters.useType !== ''
   ].filter(Boolean).length;
 
   return (
@@ -117,51 +105,7 @@ export const PropertySearch = () => {
           {/* Filters Panel */}
           {showFilters && (
             <div className="mt-4 p-6 bg-slate-50 rounded-xl border border-slate-200 animate-fade-in-down">
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {/* Size Range */}
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Size (sq ft)</label>
-                  <div className="flex items-center gap-2">
-                    <input 
-                      type="number" 
-                      placeholder="Min"
-                      value={filters.minSize || ''}
-                      onChange={(e) => setFilters({...filters, minSize: parseInt(e.target.value) || 0})}
-                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-landco-yellow"
-                    />
-                    <span className="text-slate-400">-</span>
-                    <input 
-                      type="number" 
-                      placeholder="Max"
-                      value={filters.maxSize === 50000 ? '' : filters.maxSize}
-                      onChange={(e) => setFilters({...filters, maxSize: parseInt(e.target.value) || 50000})}
-                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-landco-yellow"
-                    />
-                  </div>
-                </div>
-
-                {/* Price Range */}
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Price (£/mo)</label>
-                  <div className="flex items-center gap-2">
-                    <input 
-                      type="number" 
-                      placeholder="Min"
-                      value={filters.minPrice || ''}
-                      onChange={(e) => setFilters({...filters, minPrice: parseInt(e.target.value) || 0})}
-                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-landco-yellow"
-                    />
-                    <span className="text-slate-400">-</span>
-                    <input 
-                      type="number" 
-                      placeholder="Max"
-                      value={filters.maxPrice === 10000 ? '' : filters.maxPrice}
-                      onChange={(e) => setFilters({...filters, maxPrice: parseInt(e.target.value) || 10000})}
-                      className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-landco-yellow"
-                    />
-                  </div>
-                </div>
-
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Availability */}
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-2">Availability</label>
@@ -172,36 +116,25 @@ export const PropertySearch = () => {
                   >
                     <option value="">All</option>
                     <option value="true">Available Only</option>
-                    <option value="false">Leased</option>
+                    <option value="false">Leased / Under Offer</option>
                   </select>
                 </div>
 
-                {/* Security Rating */}
+                {/* Use Type */}
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Security Grade</label>
-                  <div className="flex gap-2">
-                    {['A', 'A+', 'S'].map((rating) => (
-                      <button
-                        key={rating}
-                        onClick={() => {
-                          const current = filters.securityRating;
-                          setFilters({
-                            ...filters,
-                            securityRating: current.includes(rating)
-                              ? current.filter(r => r !== rating)
-                              : [...current, rating]
-                          });
-                        }}
-                        className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all ${
-                          filters.securityRating.includes(rating)
-                            ? 'bg-landco-yellow text-landco-dark'
-                            : 'bg-white border border-slate-200 text-slate-600 hover:border-slate-300'
-                        }`}
-                      >
-                        {rating}
-                      </button>
-                    ))}
-                  </div>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">Use Type</label>
+                  <select 
+                    value={filters.useType}
+                    onChange={(e) => setFilters({...filters, useType: e.target.value})}
+                    className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-landco-yellow"
+                  >
+                    <option value="">All Uses</option>
+                    <option value="storage">Open Storage</option>
+                    <option value="parking">Vehicle Parking</option>
+                    <option value="logistics">Logistics & Distribution</option>
+                    <option value="redevelopment">Redevelopment</option>
+                    <option value="ev">EV Charging</option>
+                  </select>
                 </div>
               </div>
 
@@ -209,14 +142,7 @@ export const PropertySearch = () => {
               {activeFilterCount > 0 && (
                 <div className="mt-4 pt-4 border-t border-slate-200">
                   <button
-                    onClick={() => setFilters({
-                      minSize: 0,
-                      maxSize: 50000,
-                      minPrice: 0,
-                      maxPrice: 10000,
-                      available: null,
-                      securityRating: []
-                    })}
+                    onClick={() => setFilters({ available: null, useType: '' })}
                     className="text-sm font-semibold text-slate-500 hover:text-slate-700 flex items-center gap-1"
                   >
                     <X className="w-4 h-4" /> Clear all filters

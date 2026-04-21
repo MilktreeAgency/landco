@@ -101,7 +101,7 @@ export const useSEO = (config: SEOConfig) => {
 export const SEO_CONFIG = {
   home: {
     title: 'Yards to Rent | Industrial Land & Open Storage | Landco',
-    description: 'Secure industrial yards and open storage to rent across South England. Southampton, Portsmouth, Fareham, Basingstoke. Flexible terms, 24/7 access, no business rates.',
+    description: 'Commercial land and open storage to rent across South England. Southampton, Portsmouth, Yeovil, Salisbury and more. Flexible terms, immediate availability.',
     canonicalPath: '/',
     keywords: ['yards to rent', 'industrial land', 'open storage', 'hardstanding', 'HGV parking', 'container storage', 'Southampton', 'Hampshire']
   },
@@ -144,12 +144,12 @@ export const SEO_CONFIG = {
   }),
   
   // Property detail SEO config
-  property: (propertyTitle: string, city: string, sqFt: number) => ({
-    title: `${propertyTitle} | ${sqFt.toLocaleString()} sq ft | Landco`,
-    description: `${propertyTitle} - ${sqFt.toLocaleString()} sq ft industrial yard to rent in ${city}. Secure hardstanding with 24/7 access. View details and enquire online.`,
+  property: (propertyTitle: string, location: string) => ({
+    title: `${propertyTitle} | Landco`,
+    description: `${propertyTitle} – commercial land and open storage available at ${location}. View details and enquire online.`,
     canonicalPath: `/#/property/${propertyTitle.toLowerCase().replace(/\s+/g, '-')}`,
     ogType: 'product',
-    keywords: [`${city} yard`, 'industrial land to rent', propertyTitle]
+    keywords: ['commercial land to rent', 'open storage', propertyTitle, location]
   })
 };
 

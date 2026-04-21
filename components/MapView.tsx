@@ -1,9 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { MOCK_YARDS } from '../constants';
 import { GlassPanel, StatusBadge, PrimaryButton } from './ui/EliteComponents';
-import { MapPin, X, ArrowRight, Shield, Ruler, Navigation } from 'lucide-react';
+import { MapPin, X, ArrowRight, Ruler, Navigation } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { Yard } from '../types';
+import { Yard, CITY_HUBS } from '../types';
+
+const getCityName = (slug: string) =>
+  CITY_HUBS.find(c => c.slug === slug)?.name ?? (slug.charAt(0).toUpperCase() + slug.slice(1));
 
 interface MapViewProps {
   city?: string;
@@ -15,17 +18,18 @@ export const MapView: React.FC<MapViewProps> = ({ city }) => {
   const navigate = useNavigate();
 
   const yards = useMemo(() => {
-    return city 
+    const filtered = city 
       ? MOCK_YARDS.filter(y => y.city.toLowerCase() === city.toLowerCase())
       : MOCK_YARDS;
+    return filtered.filter(y => y.coordinates);
   }, [city]);
 
   // Calculate map bounds based on coordinates
   const bounds = useMemo(() => {
     if (yards.length === 0) return { minLat: 50.5, maxLat: 51.5, minLng: -2.5, maxLng: -0.5 };
     
-    const lats = yards.map(y => y.coordinates.lat);
-    const lngs = yards.map(y => y.coordinates.lng);
+    const lats = yards.map(y => y.coordinates!.lat);
+    const lngs = yards.map(y => y.coordinates!.lng);
     
     const padding = 0.3;
     return {
@@ -77,7 +81,7 @@ export const MapView: React.FC<MapViewProps> = ({ city }) => {
 
       {/* Plot Markers */}
       {yards.map((yard) => {
-        const pos = getPosition(yard.coordinates.lat, yard.coordinates.lng);
+        const pos = getPosition(yard.coordinates!.lat, yard.coordinates!.lng);
         const isSelected = selectedYard?.id === yard.id;
         const isHovered = hoveredYard === yard.id;
 
@@ -114,9 +118,9 @@ export const MapView: React.FC<MapViewProps> = ({ city }) => {
               
               {/* Price tag on hover */}
               {(isHovered || isSelected) && !selectedYard && (
-                <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-white px-3 py-1.5 rounded-lg shadow-lg border border-slate-200 whitespace-nowrap animate-fade-in">
-                  <p className="font-bold text-slate-900 text-sm">£{yard.pricePerMonth.toLocaleString()}/mo</p>
-                  <p className="text-xs text-slate-500">{yard.sqFt.toLocaleString()} sq ft</p>
+                <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-white px-3 py-1.5 rounded-lg shadow-lg border border-slate-200 whitespace-nowrap animate-fade-in">
+                  <p className="font-bold text-slate-900 text-sm">{yard.price}</p>
+                  <p className="text-xs text-slate-500">{yard.availability}</p>
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-white border-r border-b border-slate-200" />
                 </div>
               )}
@@ -151,26 +155,19 @@ export const MapView: React.FC<MapViewProps> = ({ city }) => {
             <div className="p-5">
               <h3 className="font-display font-bold text-lg text-slate-900 mb-1">{selectedYard.title}</h3>
               <p className="text-sm text-slate-500 flex items-center gap-1 mb-4">
-                <MapPin className="w-4 h-4" /> {selectedYard.location}
+                <MapPin className="w-4 h-4" /> {getCityName(selectedYard.city)}
               </p>
 
-              <div className="flex gap-4 mb-4 text-sm">
-                <div className="flex items-center gap-1.5 text-slate-600">
-                  <Ruler className="w-4 h-4 text-slate-400" />
-                  <span className="font-semibold">{selectedYard.sqFt.toLocaleString()}</span> sq ft
-                </div>
-                <div className="flex items-center gap-1.5 text-slate-600">
-                  <Shield className="w-4 h-4 text-slate-400" />
-                  Grade <span className="font-semibold">{selectedYard.securityRating}</span>
-                </div>
+              <div className="flex items-center gap-1.5 text-slate-600 text-sm mb-4">
+                <Ruler className="w-4 h-4 text-slate-400 shrink-0" />
+                <span className="font-semibold">{selectedYard.availability}</span>
               </div>
 
               <div className="flex items-center justify-between pt-4 border-t border-slate-100">
                 <div>
-                  <p className="text-xs text-slate-400 uppercase tracking-wider font-bold">From</p>
-                  <p className="text-xl font-display font-black text-slate-900">
-                    £{selectedYard.pricePerMonth.toLocaleString()}
-                    <span className="text-sm text-slate-500 font-medium"> /mo</span>
+                  <p className="text-xs text-slate-400 uppercase tracking-wider font-bold">Price</p>
+                  <p className="text-base font-display font-black text-slate-900 leading-tight">
+                    {selectedYard.price}
                   </p>
                 </div>
                 <PrimaryButton 

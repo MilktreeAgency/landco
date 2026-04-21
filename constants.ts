@@ -1,207 +1,212 @@
-import { Yard, SiteManager } from './types';
-
-// Site Managers
-const SITE_MANAGERS: Record<string, SiteManager> = {
-  james: {
-    name: 'James Mitchell',
-    role: 'Senior Site Manager',
-    phone: '+44 23 8012 3456',
-    email: 'j.mitchell@landco.co.uk',
-    imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face'
-  },
-  sarah: {
-    name: 'Sarah Thompson',
-    role: 'Operations Manager',
-    phone: '+44 23 9234 5678',
-    email: 's.thompson@landco.co.uk',
-    imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face'
-  },
-  david: {
-    name: 'David Chen',
-    role: 'Facilities Manager',
-    phone: '+44 12 6478 9012',
-    email: 'd.chen@landco.co.uk',
-    imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face'
-  },
-  emma: {
-    name: 'Emma Roberts',
-    role: 'Site Coordinator',
-    phone: '+44 19 8034 5678',
-    email: 'e.roberts@landco.co.uk',
-    imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face'
-  }
-};
+import { Yard } from './types';
 
 export const MOCK_YARDS: Yard[] = [
   {
     id: '1',
-    title: 'Southampton Western Docks Hub',
-    location: 'Southampton, SO15',
+    title: '407 Millbrook Road',
+    location: '407 Millbrook Road',
     city: 'southampton',
-    sqFt: 12500,
-    pricePerMonth: 2200,
-    tags: ['HGV Ready', '24/7 Monitored', 'Hardstanding'],
-    imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=600&fit=crop',
-    images: [
-      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1200&h=800&fit=crop'
+    availability: '1 Site Available',
+    description: 'Secure, main roadside commercial yard with excellent visibility and access. The site benefits from an electric gated entrance and on-site security cameras. A large portacabin office is included, providing functional workspace with two toilets and a kitchen.',
+    features: [
+      'Approx. 8,200 sq ft yard space',
+      'Electric gated access',
+      'CCTV security',
+      'Portacabin office with kitchen and 2 x toilets',
+      'Mains electricity on site',
+      'Prominent roadside position'
     ],
-    securityRating: 'S',
+    use: 'Suitable for open storage, operational yard use, or businesses requiring strong roadside presence.',
+    price: 'Price on application',
+    tags: ['Electric Gates', 'CCTV', 'Portacabin Office'],
+    imageUrl: '/property-imagery/millbrook-road/cover.jpg',
+    images: [
+      '/property-imagery/millbrook-road/cover.jpg',
+      '/property-imagery/millbrook-road/01.jpg',
+      '/property-imagery/millbrook-road/02.jpg',
+      '/property-imagery/millbrook-road/03.jpg',
+      '/property-imagery/millbrook-road/04.jpg',
+      '/property-imagery/millbrook-road/05.jpg',
+      '/property-imagery/millbrook-road/06.jpg',
+      '/property-imagery/millbrook-road/07.jpg',
+      '/property-imagery/millbrook-road/aerial.jpg'
+    ],
     available: true,
-    coordinates: { lat: 50.9097, lng: -1.4044 },
-    certifications: ['BREEAM Outstanding', 'ISO 14001', 'Secured by Design'],
-    features: ['Hardstanding Surface', '24/7 HGV Access', 'Mains Electric', 'CCTV Tower', 'Perimeter Fencing', 'Floodlighting'],
-    siteManager: SITE_MANAGERS.james,
-    description: 'A premium open storage facility located strategically at Southampton Western Docks. This site features fully hardened surface suitable for heavy goods vehicles, comprehensive perimeter fencing, and our signature AI-monitored security array. Direct access to M27 and major shipping lanes.',
-    plotId: 'SW-01'
+    coordinates: { lat: 50.9097, lng: -1.4620 }
   },
   {
     id: '2',
-    title: 'Portsmouth Logistics Yard',
-    location: 'Portsmouth, PO3',
+    title: 'Portsdown Main – James Callaghan Drive',
+    location: 'James Callaghan Drive',
     city: 'portsmouth',
-    sqFt: 5000,
-    pricePerMonth: 950,
-    tags: ['Container Storage', 'Secure Gated', 'Lighting'],
-    imageUrl: 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=800&h=600&fit=crop',
-    images: [
-      'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&h=800&fit=crop'
+    availability: '4,000 – 80,000 sq ft',
+    description: 'Flexible open storage yards available in a secure commercial setting. The site offers a range of plot sizes, making it suitable for both small and large-scale operations.',
+    features: [
+      'Units from 4,000 to 80,000 sq ft',
+      'Secure yard environment',
+      '7-day access',
+      'Flexible lease terms from 12 months',
+      'Suitable for a range of commercial uses'
     ],
-    securityRating: 'A+',
+    use: 'Ideal for open storage, logistics, distribution, and contractor yard space.',
+    price: 'From £3 per sq ft',
+    tags: ['4k – 80k sq ft', 'Flexible Terms', '7-Day Access'],
+    imageUrl: '/property-imagery/portsdown-main/cover.jpg',
+    images: [
+      '/property-imagery/portsdown-main/cover.jpg',
+      '/property-imagery/portsdown-main/01.jpg',
+      '/property-imagery/portsdown-main/02.jpg',
+      '/property-imagery/portsdown-main/03.jpg',
+      '/property-imagery/portsdown-main/04.jpg',
+      '/property-imagery/portsdown-main/aerial.jpg'
+    ],
     available: true,
-    coordinates: { lat: 50.8198, lng: -1.0880 },
-    certifications: ['ISO 9001', 'Secured by Design'],
-    features: ['Container Storage', 'Gated Access', 'LED Lighting', 'CCTV Coverage', 'Tarmac Surface'],
-    siteManager: SITE_MANAGERS.sarah,
-    description: 'Ideal for container storage and light logistics operations. This compact Portsmouth yard offers excellent security with 24-hour gated access and comprehensive CCTV coverage. Perfect for businesses needing flexible, secure storage near the port.',
-    plotId: 'PM-02'
+    coordinates: { lat: 50.8487, lng: -1.0529 }
   },
   {
     id: '3',
-    title: 'M27 Strategic Storage',
-    location: 'Fareham, PO16',
-    city: 'fareham',
-    sqFt: 45000,
-    pricePerMonth: 6500,
-    tags: ['Plant Hire', 'CCTV Tower', 'Water/Electric'],
-    imageUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop',
-    images: [
-      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=800&fit=crop'
+    title: 'Sentry House, Antelope Park',
+    location: 'Bursledon Road, SO19 7TE',
+    city: 'southampton',
+    availability: 'Internal from 2,000 sq ft · External from 4,000 sq ft',
+    totalSiteArea: 'Approx. 1.5 acres',
+    description: 'A substantial commercial site currently undergoing refurbishment, offering a mix of internal space and external yard areas. Flexible configurations are available to suit a range of occupier requirements.',
+    features: [
+      'Internal space from 2,000 to 68,000 sq ft',
+      'External yard space from 4,000 sq ft',
+      'Total internal space up to approx. 30,000 sq ft',
+      'Total site size approx. 68,000 sq ft',
+      'Ongoing refurbishment',
+      'Flexible space options'
     ],
-    securityRating: 'S',
-    available: false,
-    coordinates: { lat: 50.8512, lng: -1.1793 },
-    certifications: ['BREEAM Excellent', 'ISO 14001', 'ISO 45001'],
-    features: ['Large Format Storage', 'Dedicated CCTV Tower', 'Mains Water', 'Three-Phase Electric', 'Weighbridge', 'Office Unit Available'],
-    siteManager: SITE_MANAGERS.david,
-    description: 'Our flagship large-format storage facility positioned directly on the M27 corridor. Suitable for major plant hire operations, fleet storage, and distribution centres. This 45,000 sq ft site includes dedicated office space and weighbridge facilities.',
-    plotId: 'M27-03'
+    use: 'Suitable for warehousing, light industrial use, storage, and distribution.',
+    price: 'Internal from £6 per sq ft · External from £3 per sq ft',
+    tags: ['Internal & External', 'Up to 68,000 sq ft', 'Refurbishment'],
+    imageUrl: '/property-imagery/sentry-house/cover.jpg',
+    images: [
+      '/property-imagery/sentry-house/cover.jpg'
+    ],
+    available: true,
+    coordinates: { lat: 50.8987, lng: -1.3582 }
   },
   {
     id: '4',
-    title: 'Andover Distribution Plot',
-    location: 'Andover, SP10',
-    city: 'andover',
-    sqFt: 8000,
-    pricePerMonth: 1400,
-    tags: ['Flexible Terms', 'No Business Rates'],
-    imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
-    images: [
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&h=800&fit=crop'
+    title: 'Sherborne House, Yeovil',
+    location: 'Babylon Hill, Yeovil',
+    city: 'yeovil',
+    availability: 'Whole or split plots',
+    totalSiteArea: 'Approx. 1.3 acres',
+    description: 'Prominent roadside commercial site with redevelopment potential. Previously occupied by a garage and automotive businesses, the property includes multiple buildings and outbuildings across an irregular-shaped site.',
+    features: [
+      'Approx. 1.3-acre site',
+      'Main road frontage (A30)',
+      'Two workshop buildings',
+      'Former garage retail unit',
+      'Additional outbuildings',
+      'Large vehicle display area',
+      'Flexible plot configuration (whole or split)'
     ],
-    securityRating: 'A',
+    condition: 'Buildings are in poor condition and may require refurbishment or redevelopment.',
+    use: 'Suitable for redevelopment, owner-occupation, storage, or automotive-related uses.',
+    price: 'Price on application',
+    tags: ['1.3 Acres', 'A30 Frontage', 'Redevelopment Potential'],
+    imageUrl: '/property-imagery/sherborne-house/cover.jpg',
+    images: [
+      '/property-imagery/sherborne-house/cover.jpg',
+      '/property-imagery/sherborne-house/01.jpg',
+      '/property-imagery/sherborne-house/02.jpg',
+      '/property-imagery/sherborne-house/03.jpg',
+      '/property-imagery/sherborne-house/aerial.jpg'
+    ],
     available: true,
-    coordinates: { lat: 51.2066, lng: -1.4880 },
-    certifications: ['ISO 9001'],
-    features: ['Flexible Licensing', 'Compound Storage', 'Security Patrol', 'A303 Access', 'Hardstanding'],
-    siteManager: SITE_MANAGERS.emma,
-    description: 'Strategic distribution plot with direct A303 access, perfect for national logistics operations. Benefits from flexible licensing terms with no business rates liability. Ideal for scaffolding, construction materials, or vehicle storage.',
-    plotId: 'AD-04'
+    coordinates: { lat: 50.9407, lng: -2.6136 }
   },
   {
     id: '5',
-    title: 'Yeovil Commercial Yard',
-    location: 'Yeovil, BA20',
-    city: 'yeovil',
-    sqFt: 15000,
-    pricePerMonth: 2800,
-    tags: ['Aerospace Zone', 'High Security', 'Climate Ready'],
-    imageUrl: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=800&h=600&fit=crop',
-    images: [
-      'https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1200&h=800&fit=crop'
+    title: 'Coldharbour Lane, Salisbury',
+    location: 'Coldharbour Lane, SP2 7BW',
+    city: 'salisbury',
+    availability: 'Approx. 1.5 acres available',
+    totalSiteArea: 'Approx. 2.12 acres',
+    description: 'Secure commercial land suitable for vehicle parking, with flexible space availability. Part of the site is currently let, with remaining space available immediately.',
+    features: [
+      'Approx. 1.5 acres available',
+      'Capacity for approx. 65,000 sq ft parking use',
+      'Minimum space from 0.25 acres (approx. 50 vehicles)',
+      'Flexible plot sizes',
+      'Established commercial location'
     ],
-    securityRating: 'S',
+    use: 'Car parking and vehicle storage.',
+    price: 'From £1 per car per day',
+    tags: ['1.5 Acres', 'Vehicle Parking', '65k sq ft Capacity'],
+    imageUrl: '/property-imagery/coldharbour-lane/cover.jpg',
+    images: [
+      '/property-imagery/coldharbour-lane/cover.jpg',
+      '/property-imagery/coldharbour-lane/01.jpg',
+      '/property-imagery/coldharbour-lane/02.jpg',
+      '/property-imagery/coldharbour-lane/03.jpg',
+      '/property-imagery/coldharbour-lane/aerial.jpg'
+    ],
     available: true,
-    coordinates: { lat: 50.9424, lng: -2.6336 },
-    certifications: ['BREEAM Very Good', 'AS9100', 'Secured by Design'],
-    features: ['Aerospace Compliant', 'High-Security Fencing', 'Environmental Monitoring', 'Drainage System', 'Emergency Access'],
-    siteManager: SITE_MANAGERS.david,
-    description: 'Premium commercial yard in Yeovil\'s aerospace corridor. Meets stringent security requirements for aerospace and defence contractors. Features advanced environmental monitoring and climate-ready drainage infrastructure.',
-    plotId: 'YV-05'
+    coordinates: { lat: 51.0741, lng: -1.7996 }
   },
   {
     id: '6',
-    title: 'Basingstoke Business Park Compound',
-    location: 'Basingstoke, RG21',
-    city: 'basingstoke',
-    sqFt: 10000,
-    pricePerMonth: 1900,
-    tags: ['M3 Access', 'Modern Facilities', 'Expandable'],
-    imageUrl: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&h=600&fit=crop',
-    images: [
-      'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&h=800&fit=crop'
+    title: 'Byfleet Train Station Site',
+    location: 'Near Byfleet Train Station',
+    city: 'byfleet',
+    availability: 'Whole or part-site available',
+    description: 'Roadside commercial site available as a whole or in sections, offering flexible opportunities for parking and EV infrastructure.',
+    features: [
+      'Whole site or part-site availability',
+      'Roadside location',
+      'Suitable for parking use',
+      'Potential for EV charging installation'
     ],
-    securityRating: 'A+',
+    use: 'Vehicle parking, EV charging, and roadside commercial use.',
+    price: 'Price on application',
+    tags: ['EV Charging', 'Roadside', 'Flexible Plot'],
+    imageUrl: '/property-imagery/byfleet/cover.jpg',
+    images: [
+      '/property-imagery/byfleet/cover.jpg',
+      '/property-imagery/byfleet/01.jpg',
+      '/property-imagery/byfleet/02.jpg',
+      '/property-imagery/byfleet/03.jpg',
+      '/property-imagery/byfleet/04.jpg',
+      '/property-imagery/byfleet/aerial.jpg'
+    ],
     available: true,
-    coordinates: { lat: 51.2665, lng: -1.0859 },
-    certifications: ['ISO 14001', 'ISO 9001'],
-    features: ['M3 Junction Access', 'Modern Infrastructure', 'Expansion Options', 'ANPR Entry', 'Electric Charging'],
-    siteManager: SITE_MANAGERS.sarah,
-    description: 'Modern compound facility within Basingstoke Business Park, offering direct M3 access for London and south coast distribution. Features ANPR-controlled entry and electric vehicle charging infrastructure. Adjacent plots available for expansion.',
-    plotId: 'BS-06'
+    coordinates: { lat: 51.3444, lng: -0.4796 }
   }
 ];
 
 export const SYSTEM_INSTRUCTION_CONCIERGE = `
-You are the "Landco Site Manager AI". You are an expert in industrial land leasing, logistics, and site security.
-Your tone is professional, authoritative, yet helpful. You speak like a high-end concierge for logistics managers.
-You represent Landco, the UK's elite open storage provider.
+You are the "Landco Site Manager AI". You are an expert in commercial land leasing, open storage, and site management.
+Your tone is professional, authoritative, yet helpful. You speak like a high-end concierge for business operators.
+You represent Landco, a UK commercial land specialist.
 
 Key selling points:
-- Flexible monthly licenses (no 5-year leases)
-- Instant access via App
-- High-definition CCTV with AI monitoring
-- No business rates on most sites
-- BREEAM certified facilities
-- 24/7 HGV access
+- Flexible lease terms from 12 months
+- Secure, gated sites with CCTV
+- Open storage, parking, and logistics yard use
+- Sites available from small plots to 80,000 sq ft+
+- Locations across Hampshire, Somerset, Wiltshire, and Surrey
 
 Current available sites:
-- Southampton Western Docks Hub: 12,500 sq ft, £2,200/mo
-- Portsmouth Logistics Yard: 5,000 sq ft, £950/mo
-- Andover Distribution Plot: 8,000 sq ft, £1,400/mo
-- Yeovil Commercial Yard: 15,000 sq ft, £2,800/mo
-- Basingstoke Business Park: 10,000 sq ft, £1,900/mo
+- 407 Millbrook Road, Southampton: Approx. 8,200 sq ft – Price on application
+- Portsdown Main, James Callaghan Drive: 4,000 – 80,000 sq ft – From £3 per sq ft
+- Sentry House, Antelope Park, Bursledon Road SO19: Internal from 2,000 sq ft, External from 4,000 sq ft
+- Sherborne House, Babylon Hill, Yeovil: Approx. 1.3 acres – Price on application
+- Coldharbour Lane, Salisbury SP2: Approx. 1.5 acres – From £1 per car per day
+- Byfleet Train Station Site: Whole or part-site – Price on application
 
-Answer questions about zoning, square footage calculations, and security features.
+Answer questions about site sizes, lease terms, permitted uses, and availability.
 Keep responses concise and business-focused. Maximum 2-3 sentences per response.
 `;
 
 export const HERO_STATS = [
-  { value: 95500, label: 'Total Sq Ft', suffix: '+' },
   { value: 6, label: 'Active Sites', suffix: '' },
-  { value: 24, label: 'Hour Access', suffix: '/7' },
-  { value: 99.9, label: 'Uptime', suffix: '%' }
+  { value: 80000, label: 'Max Sq Ft Available', suffix: '+' },
+  { value: 4, label: 'Counties Covered', suffix: '' },
+  { value: 24, label: 'Hour Access', suffix: '/7' }
 ];

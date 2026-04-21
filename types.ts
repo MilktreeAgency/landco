@@ -11,19 +11,19 @@ export interface Yard {
   title: string;
   location: string;
   city: string;
-  sqFt: number;
-  pricePerMonth: number;
+  availability: string;       // e.g. "1 Site Available", "4,000 – 80,000 sq ft"
+  description: string;
+  features: string[];
+  use: string;
+  price: string;              // e.g. "Price on application", "From £3 per sq ft"
   tags: string[];
   imageUrl: string;
-  images: string[]; // Multiple images for carousel
-  securityRating: 'A' | 'A+' | 'S';
+  images: string[];
   available: boolean;
-  coordinates: { lat: number; lng: number };
-  certifications: string[]; // e.g., 'BREEAM Outstanding', 'ISO 14001'
-  features: string[]; // e.g., 'Hardstanding', '24/7 Access', 'Mains Electric'
+  coordinates?: { lat: number; lng: number };
+  totalSiteArea?: string;     // e.g. "Approx. 1.5 acres"
+  condition?: string;         // building/site condition note
   siteManager?: SiteManager;
-  description?: string;
-  plotId?: string; // For multi-plot sites
 }
 
 export interface ChatMessage {
@@ -72,31 +72,24 @@ export const CITY_HUBS: CityHub[] = [
     heroImage: 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1920&q=80'
   },
   {
-    slug: 'fareham',
-    name: 'Fareham',
-    region: 'Hampshire',
-    description: 'Central M27 corridor with excellent distribution links',
-    heroImage: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=80'
-  },
-  {
-    slug: 'andover',
-    name: 'Andover',
-    region: 'Hampshire',
-    description: 'Strategic A303 access for national distribution',
-    heroImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80'
-  },
-  {
     slug: 'yeovil',
     name: 'Yeovil',
     region: 'Somerset',
-    description: 'Southwest gateway with aerospace heritage',
+    description: 'Southwest gateway with strong road connectivity',
     heroImage: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80'
   },
   {
-    slug: 'basingstoke',
-    name: 'Basingstoke',
-    region: 'Hampshire',
-    description: 'M3 corridor hub for London distribution',
+    slug: 'salisbury',
+    name: 'Salisbury',
+    region: 'Wiltshire',
+    description: 'Established commercial location with flexible land available',
+    heroImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80'
+  },
+  {
+    slug: 'byfleet',
+    name: 'Byfleet',
+    region: 'Surrey',
+    description: 'Roadside commercial sites with EV and parking potential',
     heroImage: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1920&q=80'
   }
 ];

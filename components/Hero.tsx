@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, MapPin, Shield, Zap, Infinity, ChevronDown } from 'lucide-react';
+import { Search, MapPin, Shield, Zap, Infinity } from 'lucide-react';
 import { AnimatedCounter } from './ui/EliteComponents';
 import { useNavigate } from 'react-router-dom';
 import { HERO_STATS } from '../constants';
@@ -56,7 +56,7 @@ export const Hero = () => {
     : CITY_HUBS;
 
   return (
-    <section className="relative min-h-[100vh] flex flex-col items-center justify-center overflow-hidden bg-gradient-hero">
+    <section className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-x-hidden bg-gradient-hero">
       {/* Cinematic Background */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -65,8 +65,8 @@ export const Hero = () => {
           className="w-full h-full object-cover opacity-20 scale-105"
         />
         {/* Multi-layer gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-landco-darker via-landco-dark/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-radial opacity-50" />
+        <div className="absolute inset-0 bg-landco-dark/70" />
+        <div className="absolute inset-0 bg-gradient-to-t from-landco-darker via-landco-dark/40 to-transparent" />
         
         {/* Animated grid pattern overlay */}
         <div 
@@ -84,7 +84,7 @@ export const Hero = () => {
 
       <div className="relative z-10 w-full max-w-6xl px-6 text-center">
         {/* Pre-headline badge - Added extra padding for mobile devices */}
-        <div className={`pt-24 sm:pt-20 md:pt-16 mb-8 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <div className={`pt-24 sm:pt-20 md:pt-16 mb-4 sm:mb-8 transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm text-gray-300">
             <span className="w-2 h-2 rounded-full bg-landco-security animate-pulse" />
             <span className="font-medium">UK's Premier Open Storage Network</span>
@@ -98,13 +98,13 @@ export const Hero = () => {
         </h1>
 
         {/* Subheadline - Better mobile sizing */}
-        <p className={`text-base sm:text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto font-light leading-relaxed transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <p className={`text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-12 max-w-2xl mx-auto font-light leading-relaxed transition-all duration-700 delay-200 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           Secure, hardstanding industrial land for modern logistics infrastructure. 
           <span className="text-white font-medium"> Instant access. Flexible terms. No traditional lease delays.</span>
         </p>
 
         {/* The "Google-Simple" Search */}
-        <div className={`relative max-w-2xl mx-auto mb-16 transition-all duration-700 delay-300 z-50 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} ref={searchContainerRef}>
+        <div className={`relative max-w-2xl mx-auto mb-8 sm:mb-16 transition-all duration-700 delay-300 z-50 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} ref={searchContainerRef}>
           <div className="relative z-50">
             <div className="bg-white p-2 flex items-center shadow-2xl rounded-xl border border-white/10 relative z-10">
               <div className="pl-4 text-slate-400">
@@ -181,7 +181,7 @@ export const Hero = () => {
         </div>
 
         {/* Value Badges */}
-        <div className={`flex flex-wrap justify-center gap-4 md:gap-6 mb-16 transition-all duration-700 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`flex flex-wrap justify-center gap-3 md:gap-6 mb-8 sm:mb-16 transition-all duration-700 delay-400 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <Badge icon={<Shield className="w-4 h-4 text-landco-security" />} text="SECURE SITES" delay="stagger-1" />
           <Badge icon={<Zap className="w-4 h-4 text-landco-yellow" />} text="IMMEDIATE START" delay="stagger-2" />
           <Badge icon={<Infinity className="w-4 h-4 text-blue-400" />} text="FLEXIBLE TERMS" delay="stagger-3" />
@@ -191,7 +191,7 @@ export const Hero = () => {
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto transition-all duration-700 delay-500 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {HERO_STATS.map((stat, idx) => (
             <div key={idx} className="text-center">
-              <div className="text-3xl md:text-4xl font-display font-black text-white mb-1">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white mb-1">
                 <AnimatedCounter 
                   value={stat.value} 
                   suffix={stat.suffix}
@@ -204,13 +204,6 @@ export const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 transition-all duration-700 delay-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-        <div className="flex flex-col items-center gap-2 text-slate-400 animate-pulse-slow">
-          <span className="text-xs uppercase tracking-widest font-medium">Explore</span>
-          <ChevronDown className="w-5 h-5" />
-        </div>
-      </div>
     </section>
   );
 };

@@ -5,7 +5,6 @@ import { Hero } from './components/Hero';
 import { ListingGrid } from './components/ListingGrid';
 import { LeadQualifier } from './components/LeadQualifier';
 import { Dashboard } from './components/Dashboard';
-import { GeminiChat } from './components/GeminiChat';
 import { Footer } from './components/Footer';
 import { PropertySearch } from './components/PropertySearch';
 import { PropertyDetails } from './components/PropertyDetails';
@@ -105,12 +104,10 @@ function App() {
           {/* City Hub Routes for SEO */}
           <Route path="/yards-to-rent-southampton" element={<CityHubPage />} />
           <Route path="/yards-to-rent-portsmouth" element={<CityHubPage />} />
-          <Route path="/yards-to-rent-fareham" element={<CityHubPage />} />
-          <Route path="/yards-to-rent-andover" element={<CityHubPage />} />
           <Route path="/yards-to-rent-yeovil" element={<CityHubPage />} />
-          <Route path="/yards-to-rent-basingstoke" element={<CityHubPage />} />
+          <Route path="/yards-to-rent-salisbury" element={<CityHubPage />} />
+          <Route path="/yards-to-rent-byfleet" element={<CityHubPage />} />
         </Routes>
-        <GeminiChat />
       </div>
     </HashRouter>
   );

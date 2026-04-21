@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MOCK_YARDS } from '../constants';
-import { GlassPanel, PrimaryButton, StatusBadge, ImageCarousel, FeatureBadge, SiteManagerCard } from './ui/EliteComponents';
-import { MapPin, Shield, Check, Ruler, Truck, ArrowLeft, Share2, X, ChevronLeft, ChevronRight, Video, Calendar, FileText, Phone, Download, Eye } from 'lucide-react';
+import { CITY_HUBS } from '../types';
+
+const getCityName = (slug: string) =>
+  CITY_HUBS.find(c => c.slug === slug)?.name ?? (slug.charAt(0).toUpperCase() + slug.slice(1));
+import { GlassPanel, PrimaryButton, StatusBadge, ImageCarousel, SiteManagerCard } from './ui/EliteComponents';
+import { MapPin, Check, Ruler, Tag, ArrowLeft, Share2, X, ChevronLeft, ChevronRight, Calendar, FileText, Phone, Download, Eye, AlertTriangle } from 'lucide-react';
 import { Yard } from '../types';
 import { useSEO, SEO_CONFIG } from '../hooks/useSEO';
 
@@ -41,9 +45,9 @@ export const PropertyDetails = () => {
   }, [id]);
 
   // Dynamic SEO for property pages
-  useSEO(property ? SEO_CONFIG.property(property.title, property.city, property.sqFt) : {
+  useSEO(property ? SEO_CONFIG.property(property.title, property.location) : {
     title: 'Property Details | Landco',
-    description: 'View industrial yard details and enquire online.'
+    description: 'View commercial land details and enquire online.'
   });
 
   const openLightbox = (index: number) => {
@@ -107,11 +111,6 @@ export const PropertyDetails = () => {
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
             <div className="absolute top-6 left-6 flex flex-col gap-2">
               <StatusBadge status={property.available ? 'available' : 'occupied'} />
-              {property.securityRating === 'S' && (
-                <span className="bg-slate-900/90 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10 flex items-center gap-2 shadow-lg w-fit">
-                  <Video className="w-3 h-3 text-red-500 animate-pulse" /> AI MONITORED
-                </span>
-              )}
             </div>
             <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-sm font-medium text-slate-700 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <Eye className="w-4 h-4" /> View Gallery
@@ -146,32 +145,20 @@ export const PropertyDetails = () => {
         <div className="lg:col-span-2 space-y-10">
           {/* Header */}
           <div>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {property.certifications.map(cert => (
-                <FeatureBadge 
-                  key={cert}
-                  type={cert.toLowerCase().includes('breeam') ? 'breeam' : cert.toLowerCase().includes('iso') ? 'iso' : cert.toLowerCase().includes('security') || cert.toLowerCase().includes('secured') ? 'security' : 'certified'}
-                  label={cert}
-                />
-              ))}
-            </div>
             <h1 className="font-display font-black text-4xl md:text-5xl text-slate-900 mb-3">{property.title}</h1>
             <p className="text-xl text-slate-500 flex items-center gap-2">
-              <MapPin className="w-5 h-5" /> {property.location}
-              {property.plotId && (
-                <span className="ml-2 text-sm bg-slate-100 px-2 py-1 rounded font-mono">
-                  Plot {property.plotId}
-                </span>
-              )}
+              <MapPin className="w-5 h-5" /> {getCityName(property.city)}
             </p>
+            {property.totalSiteArea && (
+              <p className="text-sm text-slate-400 mt-1 ml-7">Total Site Area: {property.totalSiteArea}</p>
+            )}
           </div>
 
           {/* Specs - Mobile responsive grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            <SpecCard icon={<Ruler className="w-6 h-6 text-landco-dark" />} label="Area" value={`${property.sqFt.toLocaleString()} sq ft`} />
-            <SpecCard icon={<Shield className="w-6 h-6 text-landco-dark" />} label="Security" value={`Grade ${property.securityRating}`} />
-            <SpecCard icon={<Truck className="w-6 h-6 text-landco-dark" />} label="Access" value="24/7 HGV" />
-            <SpecCard icon={<Calendar className="w-6 h-6 text-landco-dark" />} label="Terms" value="3-month min" />
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+            <SpecCard icon={<Ruler className="w-6 h-6 text-landco-dark" />} label="Availability" value={property.availability} />
+            <SpecCard icon={<Tag className="w-6 h-6 text-landco-dark" />} label="Use" value={property.use.split(',')[0]} />
+            <SpecCard icon={<Calendar className="w-6 h-6 text-landco-dark" />} label="Price" value={property.price} />
           </div>
 
           {/* Description */}
@@ -180,13 +167,26 @@ export const PropertyDetails = () => {
             <p className="text-slate-600 leading-relaxed mb-6">
               {property.description}
             </p>
-            
-            <h4 className="font-display font-bold text-lg text-slate-900 mb-4">Site Features</h4>
+
+            <h4 className="font-display font-bold text-lg text-slate-900 mb-4">Key Features</h4>
             <ul className="space-y-3 mt-4">
               {property.features.map((feature, idx) => (
                 <ListItem key={idx}>{feature}</ListItem>
               ))}
             </ul>
+
+            <h4 className="font-display font-bold text-lg text-slate-900 mb-3 mt-8">Suitable Use</h4>
+            <p className="text-slate-600 leading-relaxed">{property.use}</p>
+
+            {property.condition && (
+              <div className="mt-6 flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl p-4">
+                <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-semibold text-amber-800 text-sm mb-1">Condition Note</p>
+                  <p className="text-amber-700 text-sm">{property.condition}</p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Site Manager */}
@@ -229,13 +229,10 @@ export const PropertyDetails = () => {
         <div className="space-y-6">
           <GlassPanel className="p-6 sticky top-24">
             <div className="mb-6 pb-6 border-b border-slate-100">
-              <p className="text-sm text-slate-500 font-medium mb-1">License Fee</p>
-              <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-display font-black text-slate-900">£{property.pricePerMonth.toLocaleString()}</span>
-                <span className="text-slate-500">/ month</span>
-              </div>
-              <p className="text-sm text-landco-security mt-2 font-bold flex items-center gap-1.5">
-                <Check className="w-4 h-4" /> No Business Rates Applied
+              <p className="text-sm text-slate-500 font-medium mb-1">Price</p>
+              <p className="text-2xl font-display font-black text-slate-900 leading-tight">{property.price}</p>
+              <p className="text-sm text-slate-400 mt-2 flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-landco-security" /> Flexible terms available
               </p>
             </div>
 

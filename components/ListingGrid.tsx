@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { MOCK_YARDS } from '../constants';
-import { GlassPanel, StatusBadge, ImageCarousel, FeatureBadge, TagBadge, SiteManagerCard } from './ui/EliteComponents';
-import { ArrowRight, Video, MapPin, Ruler, Shield } from 'lucide-react';
+import { GlassPanel, StatusBadge, ImageCarousel, TagBadge, SiteManagerCard } from './ui/EliteComponents';
+import { ArrowRight, MapPin, Ruler, Tag } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Yard } from '../types';
+import { Yard, CITY_HUBS } from '../types';
+
+const getCityName = (slug: string) =>
+  CITY_HUBS.find(c => c.slug === slug)?.name ?? (slug.charAt(0).toUpperCase() + slug.slice(1));
 
 interface ListingGridProps {
   limit?: number;
@@ -89,15 +92,6 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ yard, onClick, delay = 0, i
         <div className="absolute top-4 left-4 z-20">
           <StatusBadge status={yard.available ? 'available' : 'occupied'} />
         </div>
-        
-        {/* Security Badge */}
-        <div className="absolute top-4 right-4 z-20 flex gap-2">
-          {yard.securityRating === 'S' && (
-            <span className="bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1.5 rounded-lg border border-white/10 flex items-center gap-1.5 shadow-lg">
-              <Video className="w-3 h-3 text-red-500 animate-pulse" /> 24/7 MONITORED
-            </span>
-          )}
-        </div>
 
         {/* Image Carousel */}
         <ImageCarousel 
@@ -113,19 +107,6 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ yard, onClick, delay = 0, i
 
       {/* Content Area */}
       <div className="p-6 flex flex-col flex-grow bg-white">
-        {/* Certifications */}
-        {yard.certifications.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
-            {yard.certifications.slice(0, 2).map(cert => (
-              <FeatureBadge 
-                key={cert}
-                type={cert.toLowerCase().includes('breeam') ? 'breeam' : cert.toLowerCase().includes('iso') ? 'iso' : 'certified'}
-                label={cert}
-              />
-            ))}
-          </div>
-        )}
-
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
           {yard.tags.slice(0, 3).map(tag => (
@@ -141,21 +122,20 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ yard, onClick, delay = 0, i
             {yard.title}
           </h3>
           <p className="text-slate-500 text-sm flex items-center gap-1.5 font-medium">
-            <MapPin className="w-4 h-4" /> {yard.location}
+            <MapPin className="w-4 h-4" /> {getCityName(yard.city)}
           </p>
         </div>
 
-        {/* Quick Stats */}
-        <div className="flex gap-4 mb-4 text-sm">
-          <div className="flex items-center gap-1.5 text-slate-600">
-            <Ruler className="w-4 h-4 text-slate-400" />
-            <span className="font-semibold">{yard.sqFt.toLocaleString()}</span>
-            <span className="text-slate-400">sq ft</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-slate-600">
-            <Shield className="w-4 h-4 text-slate-400" />
-            <span className="font-semibold">Grade {yard.securityRating}</span>
-          </div>
+        {/* Availability */}
+        <div className="flex items-center gap-1.5 text-slate-600 text-sm mb-4">
+          <Ruler className="w-4 h-4 text-slate-400 shrink-0" />
+          <span className="font-semibold">{yard.availability}</span>
+        </div>
+
+        {/* Use */}
+        <div className="flex items-start gap-1.5 text-slate-500 text-sm mb-4">
+          <Tag className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+          <span className="line-clamp-2">{yard.use}</span>
         </div>
 
         {/* Site Manager (compact) */}
@@ -166,12 +146,11 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ yard, onClick, delay = 0, i
         )}
 
         {/* Price & CTA */}
-        <div className="mt-auto pt-4 flex items-center justify-between">
+        <div className="mt-auto pt-4 flex items-center justify-between border-t border-slate-100">
           <div>
-            <p className="text-xs text-slate-400 uppercase tracking-wider font-bold mb-1">License Fee</p>
-            <p className="text-2xl font-display font-black text-slate-900">
-              £{yard.pricePerMonth.toLocaleString()}
-              <span className="text-sm text-slate-500 font-medium"> /mo</span>
+            <p className="text-xs text-slate-400 uppercase tracking-wider font-bold mb-1">Price</p>
+            <p className="text-base font-display font-black text-slate-900 leading-tight">
+              {yard.price}
             </p>
           </div>
           <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center border border-slate-200 group-hover:bg-landco-yellow group-hover:border-landco-yellow transition-all duration-300 group-hover:scale-110">

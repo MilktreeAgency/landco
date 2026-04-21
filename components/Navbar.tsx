@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, User, Search, MapPin, ChevronDown, Menu, X, Building2, Truck, Container, Phone, Banknote } from 'lucide-react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Search, MapPin, ChevronDown, Menu, X, Building2, Truck, Container, Phone, Banknote } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import { CITY_HUBS } from '../types';
 
 export const Navbar = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   const isDashboard = location.pathname === '/dashboard';
   const isHomePage = location.pathname === '/';
   const [isScrolled, setIsScrolled] = useState(false);
@@ -238,34 +237,6 @@ export const Navbar = () => {
             >
               <Search className="w-4 h-4" />
               <span className="text-sm font-medium">Search</span>
-            </Link>
-
-            {/* Login/Dashboard button - Icon only on mobile */}
-            <Link to={isDashboard ? "/" : "/dashboard"} className="hidden lg:block">
-              <button className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-landco-yellow hover:bg-landco-yellowHover transition-all shadow-sm hover:shadow-md group">
-                {isDashboard ? (
-                  <>
-                    <ShieldCheck className="w-4 h-4 text-landco-dark" />
-                    <span className="text-sm font-bold text-landco-dark">Site Secure</span>
-                  </>
-                ) : (
-                  <>
-                    <User className="w-4 h-4 text-landco-dark" />
-                    <span className="text-sm font-bold text-landco-dark">Client Login</span>
-                  </>
-                )}
-              </button>
-            </Link>
-            
-            {/* Mobile Login button - Icon only */}
-            <Link to={isDashboard ? "/" : "/dashboard"} className="lg:hidden">
-              <button className="flex items-center justify-center w-10 h-10 rounded-lg bg-landco-yellow hover:bg-landco-yellowHover transition-all shadow-sm hover:shadow-md group">
-                {isDashboard ? (
-                  <ShieldCheck className="w-5 h-5 text-landco-dark" />
-                ) : (
-                  <User className="w-5 h-5 text-landco-dark" />
-                )}
-              </button>
             </Link>
 
             {/* Mobile menu button */}
