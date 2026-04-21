@@ -51,21 +51,21 @@ export const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group shrink-0">
             <img
-              src="/landco-logo-colour.png"
-              alt="LANDCO"
+              src="/logo-new.png"
+              alt="LAND-CO"
               className="h-11 w-auto group-hover:scale-105 transition-transform duration-300"
             />
           </Link>
 
           {/* Desktop nav */}
           {!isDashboard && (
-            <div className="hidden xl:flex items-center gap-1 flex-1 justify-center">
+            <div className="hidden lg:flex items-center gap-0.5 flex-1 justify-center">
               {NAV_ITEMS.map((item) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
                   className={({ isActive }) =>
-                    `px-3 py-2 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${
+                    `px-2.5 py-2 rounded-lg text-[13px] xl:text-sm font-semibold transition-all whitespace-nowrap ${
                       isActive
                         ? 'text-slate-900 bg-slate-100'
                         : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
@@ -89,7 +89,7 @@ export const Navbar = () => {
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+              className="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -100,7 +100,7 @@ export const Navbar = () => {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 xl:hidden">
+        <div className="fixed inset-0 z-40 lg:hidden">
           <div
             className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-fade-in"
             onClick={() => setMobileMenuOpen(false)}
