@@ -9,6 +9,7 @@ import { GlassPanel, PrimaryButton, StatusBadge, ImageCarousel, SiteManagerCard 
 import { MapPin, Check, Ruler, Tag, ArrowLeft, Share2, X, ChevronLeft, ChevronRight, Calendar, FileText, Phone, Download, Eye, AlertTriangle } from 'lucide-react';
 import { Yard } from '../types';
 import { useSEO, SEO_CONFIG } from '../hooks/useSEO';
+import { BookViewingModal } from './BookViewingModal';
 
 const SpecCard = ({ icon, label, value }: { icon: React.ReactNode, label: string, value: string }) => (
   <div className="bg-white border border-slate-200 p-5 rounded-xl flex flex-col items-center justify-center text-center gap-3 hover:shadow-md hover:border-slate-300 transition-all duration-300">
@@ -35,6 +36,7 @@ export const PropertyDetails = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [viewingOpen, setViewingOpen] = useState(false);
 
   useEffect(() => {
     const found = MOCK_YARDS.find(y => y.id === id);
@@ -240,7 +242,11 @@ export const PropertyDetails = () => {
               <PrimaryButton className="w-full text-lg flex items-center justify-center gap-2">
                 <Phone className="w-5 h-5" /> Enquire Now
               </PrimaryButton>
-              <button className="w-full py-3.5 border border-slate-200 rounded-lg text-slate-700 font-bold hover:bg-slate-50 transition-colors flex items-center justify-center gap-2">
+              <button
+                type="button"
+                onClick={() => setViewingOpen(true)}
+                className="w-full py-3.5 border border-slate-200 rounded-lg text-slate-700 font-bold hover:bg-slate-50 transition-colors flex items-center justify-center gap-2"
+              >
                 <Calendar className="w-5 h-5" /> Schedule Viewing
               </button>
             </div>
@@ -322,6 +328,13 @@ export const PropertyDetails = () => {
           </p>
         </div>
       )}
+
+      {/* Schedule a viewing */}
+      <BookViewingModal
+        property={property}
+        open={viewingOpen}
+        onClose={() => setViewingOpen(false)}
+      />
     </div>
   );
 };

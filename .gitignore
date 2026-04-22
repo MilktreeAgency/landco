@@ -31,3 +31,6 @@ dist-ssr
 # Vercel
 .vercel
 .playwright-mcp/
+
+# Local QA / manual screenshot artifacts
+qa-*.png

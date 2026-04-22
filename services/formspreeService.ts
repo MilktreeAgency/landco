@@ -138,6 +138,40 @@ export async function submitLandForm(data: LandSubmissionData): Promise<Formspre
   });
 }
 
+export interface ViewingRequestData {
+  propertyId: string;
+  propertyTitle: string;
+  propertyLocation: string;
+  name: string;
+  email: string;
+  phone: string;
+  preferredDate: string;
+  preferredTimeSlot: string;
+  notes?: string;
+}
+
+/**
+ * Submit a viewing request from a property page.
+ * Reuses the lead form ID since both go to the same inbox.
+ */
+export async function submitViewingRequest(
+  data: ViewingRequestData
+): Promise<FormspreeResponse> {
+  return submitToFormspree(LEAD_FORM_ID, {
+    _formType: 'Viewing Request',
+    property_id: data.propertyId,
+    property_title: data.propertyTitle,
+    property_location: data.propertyLocation,
+    name: data.name,
+    email: data.email,
+    phone: data.phone,
+    preferred_date: data.preferredDate,
+    preferred_time_slot: data.preferredTimeSlot,
+    notes: data.notes || 'None',
+    source: 'Property Page – Schedule Viewing Modal',
+  });
+}
+
 /**
  * Submit quick contact form (hero section sidebar)
  */

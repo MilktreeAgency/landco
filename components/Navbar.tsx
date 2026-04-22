@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Phone } from 'lucide-react';
 import { Link, useLocation, NavLink } from 'react-router-dom';
+
+const PHONE_NUMBER = '+44 (0) 23 8012 3456';
+const PHONE_HREF = 'tel:+442380123456';
 
 interface NavItem {
   label: string;
@@ -78,8 +81,17 @@ export const Navbar = () => {
             </div>
           )}
 
-          {/* Right: Enquire CTA + mobile button */}
+          {/* Right: Call now + Enquire CTA + mobile button */}
           <div className="flex items-center gap-2 shrink-0">
+            <a
+              href={PHONE_HREF}
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-sm transition-all"
+              aria-label={`Call us on ${PHONE_NUMBER}`}
+            >
+              <Phone className="w-4 h-4" />
+              <span className="hidden md:inline">Call now</span>
+            </a>
+
             <Link
               to="/enquire"
               className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-landco-yellow hover:bg-landco-yellowHover text-landco-dark font-bold text-sm transition-all shadow-sm hover:shadow-md"
@@ -126,17 +138,30 @@ export const Navbar = () => {
                 ))}
               </div>
 
-              <Link
-                to="/enquire"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block w-full text-center px-6 py-4 rounded-xl bg-landco-yellow hover:bg-landco-yellowHover text-landco-dark font-bold transition-all shadow-md"
-              >
-                Enquire
-              </Link>
+              <div className="space-y-2.5">
+                <Link
+                  to="/enquire"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block w-full text-center px-6 py-4 rounded-xl bg-landco-yellow hover:bg-landco-yellowHover text-landco-dark font-bold transition-all shadow-md"
+                >
+                  Enquire
+                </Link>
+                <a
+                  href={PHONE_HREF}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-2 w-full px-6 py-4 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-900 font-bold transition-all"
+                >
+                  <Phone className="w-4 h-4" />
+                  Call now
+                </a>
+              </div>
 
               <div className="mt-8 pt-6 border-t border-slate-100 text-sm text-slate-500 space-y-2">
-                <a href="tel:+442380123456" className="block hover:text-slate-900">
-                  +44 (0) 23 8012 3456
+                <p className="text-xs uppercase tracking-wider font-semibold text-slate-400">
+                  Get in touch
+                </p>
+                <a href={PHONE_HREF} className="block hover:text-slate-900">
+                  {PHONE_NUMBER}
                 </a>
                 <a
                   href="mailto:enquiries@landco.co.uk"

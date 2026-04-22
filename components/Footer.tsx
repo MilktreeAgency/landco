@@ -30,8 +30,8 @@ export const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <img 
-              src="/logo-white.png" 
-              alt="LANDCO Logo" 
+              src="/logo-new-white.png" 
+              alt="LAND-CO Logo" 
               className="h-12 w-auto mb-6"
             />
             <p className="text-slate-400 text-sm leading-relaxed mb-6">

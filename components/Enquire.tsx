@@ -8,6 +8,13 @@ import {
   Check,
   Loader2,
   AlertCircle,
+  User,
+  Building2,
+  Layers,
+  Ruler,
+  CalendarClock,
+  MessageSquare,
+  ArrowRight,
 } from 'lucide-react';
 import { PageHeader } from './PageHeader';
 import { submitLeadForm } from '../services/formspreeService';
@@ -59,6 +66,7 @@ export const Enquire: React.FC = () => {
     'idle'
   );
   const [errorMsg, setErrorMsg] = useState<string>('');
+  const [submittedName, setSubmittedName] = useState<string>('');
 
   const update = (key: keyof EnquireFormState) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -89,8 +97,10 @@ export const Enquire: React.FC = () => {
     });
 
     if (result.ok) {
+      setSubmittedName(form.name);
       setStatus('success');
       setForm(initialFormState);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       setStatus('error');
       setErrorMsg(result.error || 'Something went wrong. Please try again.');
@@ -105,170 +115,232 @@ export const Enquire: React.FC = () => {
         subtitle="Tell us a bit about what you need. We'll come back to you the same working day."
       />
 
-      <section className="py-16 sm:py-20">
+      <section className="py-12 sm:py-16 lg:py-20 bg-slate-50/60">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-14">
-            {/* Form */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+            {/* Form card */}
             <div className="lg:col-span-2">
               {status === 'success' ? (
-                <div className="bg-white border border-landco-security/30 rounded-2xl p-10 text-center shadow-sm">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-landco-security/15 flex items-center justify-center mb-5">
-                    <Check className="w-8 h-8 text-landco-security" strokeWidth={3} />
-                  </div>
-                  <h3 className="font-display font-black text-2xl text-slate-900 mb-2">
-                    Enquiry received
-                  </h3>
-                  <p className="text-slate-600 mb-6">
-                    Thanks — we'll come back to you within one working day.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setStatus('idle')}
-                    className="text-landco-dark font-bold hover:underline"
-                  >
-                    Send another enquiry
-                  </button>
-                </div>
+                <SuccessCard
+                  firstName={submittedName.split(' ')[0]}
+                  onReset={() => {
+                    setStatus('idle');
+                    setSubmittedName('');
+                  }}
+                />
               ) : (
-                <form onSubmit={onSubmit} className="space-y-5">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <Field label="Your name" required>
-                      <input
-                        type="text"
-                        required
-                        value={form.name}
-                        onChange={update('name')}
-                        className={inputCls}
-                      />
-                    </Field>
-                    <Field label="Company (optional)">
-                      <input
-                        type="text"
-                        value={form.company}
-                        onChange={update('company')}
-                        className={inputCls}
-                      />
-                    </Field>
+                <form
+                  onSubmit={onSubmit}
+                  className="bg-white rounded-2xl border border-slate-200/70 shadow-sm overflow-hidden"
+                >
+                  <div className="px-6 sm:px-10 pt-8 pb-2">
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-landco-dark mb-1.5">
+                      Send us a message
+                    </p>
+                    <h2 className="font-display font-black text-2xl sm:text-3xl text-slate-900 leading-tight">
+                      Tell us about your project
+                    </h2>
+                    <p className="text-sm text-slate-500 mt-1.5">
+                      We'll respond within one working day.
+                    </p>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <Field label="Email" required>
-                      <input
-                        type="email"
-                        required
-                        value={form.email}
-                        onChange={update('email')}
-                        className={inputCls}
-                      />
-                    </Field>
-                    <Field label="Phone (optional)">
-                      <input
-                        type="tel"
-                        value={form.phone}
-                        onChange={update('phone')}
-                        className={inputCls}
-                      />
-                    </Field>
-                  </div>
+                  <div className="px-6 sm:px-10 py-7 space-y-7">
+                    {/* Section: About you */}
+                    <Section title="About you" step="1">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <Field
+                          label="Your name"
+                          icon={<User className="w-4 h-4" />}
+                          required
+                        >
+                          <input
+                            type="text"
+                            required
+                            value={form.name}
+                            onChange={update('name')}
+                            className="form-input"
+                            placeholder="Jane Smith"
+                            autoComplete="name"
+                          />
+                        </Field>
+                        <Field
+                          label="Company"
+                          icon={<Building2 className="w-4 h-4" />}
+                          optional
+                        >
+                          <input
+                            type="text"
+                            value={form.company}
+                            onChange={update('company')}
+                            className="form-input"
+                            placeholder="Acme Logistics Ltd"
+                            autoComplete="organization"
+                          />
+                        </Field>
+                      </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <Field label="Preferred location">
-                      <select
-                        value={form.location}
-                        onChange={update('location')}
-                        className={inputCls}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <Field
+                          label="Email"
+                          icon={<Mail className="w-4 h-4" />}
+                          required
+                        >
+                          <input
+                            type="email"
+                            required
+                            value={form.email}
+                            onChange={update('email')}
+                            className="form-input"
+                            placeholder="you@company.com"
+                            autoComplete="email"
+                          />
+                        </Field>
+                        <Field
+                          label="Phone"
+                          icon={<Phone className="w-4 h-4" />}
+                          optional
+                        >
+                          <input
+                            type="tel"
+                            value={form.phone}
+                            onChange={update('phone')}
+                            className="form-input"
+                            placeholder="07…"
+                            autoComplete="tel"
+                          />
+                        </Field>
+                      </div>
+                    </Section>
+
+                    <Divider />
+
+                    {/* Section: Requirements */}
+                    <Section title="What you're looking for" step="2">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <Field
+                          label="Preferred location"
+                          icon={<MapPin className="w-4 h-4" />}
+                        >
+                          <select
+                            value={form.location}
+                            onChange={update('location')}
+                            className="form-input"
+                          >
+                            <option value="">Any location</option>
+                            {CITY_HUBS.map((c) => (
+                              <option key={c.slug} value={c.name}>
+                                {c.name}, {c.region}
+                              </option>
+                            ))}
+                          </select>
+                        </Field>
+                        <Field
+                          label="Use case"
+                          icon={<Layers className="w-4 h-4" />}
+                        >
+                          <select
+                            value={form.useCase}
+                            onChange={update('useCase')}
+                            className="form-input"
+                          >
+                            <option value="">Select a use</option>
+                            {useCases.map((u) => (
+                              <option key={u} value={u}>
+                                {u}
+                              </option>
+                            ))}
+                          </select>
+                        </Field>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <Field
+                          label="Approx. size needed"
+                          icon={<Ruler className="w-4 h-4" />}
+                        >
+                          <input
+                            type="text"
+                            placeholder="e.g. 5,000 sq ft or 0.5 acre"
+                            value={form.size}
+                            onChange={update('size')}
+                            className="form-input"
+                          />
+                        </Field>
+                        <Field
+                          label="Timeline"
+                          icon={<CalendarClock className="w-4 h-4" />}
+                        >
+                          <select
+                            value={form.timeline}
+                            onChange={update('timeline')}
+                            className="form-input"
+                          >
+                            <option value="">Select timeline</option>
+                            {timelines.map((t) => (
+                              <option key={t} value={t}>
+                                {t}
+                              </option>
+                            ))}
+                          </select>
+                        </Field>
+                      </div>
+                    </Section>
+
+                    <Divider />
+
+                    {/* Section: Message */}
+                    <Section title="Anything else?" step="3">
+                      <Field
+                        label="Tell us more"
+                        icon={<MessageSquare className="w-4 h-4" />}
+                        optional
                       >
-                        <option value="">Any location</option>
-                        {CITY_HUBS.map((c) => (
-                          <option key={c.slug} value={c.name}>
-                            {c.name}, {c.region}
-                          </option>
-                        ))}
-                      </select>
-                    </Field>
-                    <Field label="Use case">
-                      <select
-                        value={form.useCase}
-                        onChange={update('useCase')}
-                        className={inputCls}
-                      >
-                        <option value="">Select a use</option>
-                        {useCases.map((u) => (
-                          <option key={u} value={u}>
-                            {u}
-                          </option>
-                        ))}
-                      </select>
-                    </Field>
-                  </div>
+                        <textarea
+                          rows={4}
+                          value={form.message}
+                          onChange={update('message')}
+                          className="form-input resize-none"
+                          placeholder="Vehicles, equipment, access requirements, etc."
+                        />
+                      </Field>
+                    </Section>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <Field label="Approx. size needed">
-                      <input
-                        type="text"
-                        placeholder="e.g. 5,000 sq ft or 0.5 acre"
-                        value={form.size}
-                        onChange={update('size')}
-                        className={inputCls}
-                      />
-                    </Field>
-                    <Field label="Timeline">
-                      <select
-                        value={form.timeline}
-                        onChange={update('timeline')}
-                        className={inputCls}
-                      >
-                        <option value="">Select timeline</option>
-                        {timelines.map((t) => (
-                          <option key={t} value={t}>
-                            {t}
-                          </option>
-                        ))}
-                      </select>
-                    </Field>
-                  </div>
-
-                  <Field label="Anything else we should know?">
-                    <textarea
-                      rows={4}
-                      value={form.message}
-                      onChange={update('message')}
-                      className={`${inputCls} resize-none`}
-                      placeholder="Vehicles, equipment, access requirements, etc."
-                    />
-                  </Field>
-
-                  {status === 'error' && (
-                    <div className="flex items-start gap-3 p-4 rounded-xl bg-red-50 border border-red-200 text-red-700">
-                      <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                      <p className="text-sm">{errorMsg}</p>
-                    </div>
-                  )}
-
-                  <button
-                    type="submit"
-                    disabled={status === 'submitting'}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-landco-yellow hover:bg-landco-yellowHover disabled:opacity-60 disabled:cursor-not-allowed text-landco-dark font-bold transition-all shadow-md hover:shadow-lg"
-                  >
-                    {status === 'submitting' ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        Sending…
-                      </>
-                    ) : (
-                      <>
-                        Send enquiry
-                        <Send className="w-5 h-5" />
-                      </>
+                    {status === 'error' && (
+                      <div className="flex items-start gap-3 p-4 rounded-xl bg-red-50 border border-red-100 text-red-700">
+                        <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                        <p className="text-sm">{errorMsg}</p>
+                      </div>
                     )}
-                  </button>
+                  </div>
+
+                  <footer className="px-6 sm:px-10 py-5 bg-slate-50 border-t border-slate-100 flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <p className="text-xs text-slate-500 leading-relaxed sm:max-w-[18rem]">
+                      We respond to all enquiries within one working day.
+                    </p>
+                    <button
+                      type="submit"
+                      disabled={status === 'submitting'}
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-landco-yellow hover:bg-landco-yellowHover disabled:opacity-60 disabled:cursor-not-allowed text-landco-dark font-bold transition-all shadow-sm hover:shadow-md whitespace-nowrap"
+                    >
+                      {status === 'submitting' ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" /> Sending…
+                        </>
+                      ) : (
+                        <>
+                          Send enquiry <Send className="w-4 h-4" />
+                        </>
+                      )}
+                    </button>
+                  </footer>
                 </form>
               )}
             </div>
 
             {/* Sidebar contact info */}
             <aside className="lg:col-span-1">
-              <div className="bg-slate-900 text-white rounded-2xl p-7 sticky top-28">
+              <div className="bg-slate-900 text-white rounded-2xl p-7 sticky top-28 shadow-sm">
                 <h3 className="font-display font-bold text-xl mb-1">
                   Prefer to talk?
                 </h3>
@@ -329,7 +401,7 @@ export const Enquire: React.FC = () => {
                     to="/sites"
                     className="inline-flex items-center gap-1.5 text-landco-yellow font-bold hover:underline"
                   >
-                    Browse available sites →
+                    Browse available sites <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
@@ -341,25 +413,93 @@ export const Enquire: React.FC = () => {
   );
 };
 
-const inputCls =
-  'w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-landco-yellow/40 focus:border-landco-yellow transition-all';
-
-const Field = ({
-  label,
-  required,
-  children,
-}: {
-  label: string;
-  required?: boolean;
+interface SectionProps {
+  title: string;
+  step: string;
   children: React.ReactNode;
+}
+
+const Section: React.FC<SectionProps> = ({ title, step, children }) => (
+  <div className="space-y-4">
+    <div className="flex items-center gap-3">
+      <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-landco-yellow/20 text-landco-dark text-xs font-bold">
+        {step}
+      </span>
+      <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-slate-700">
+        {title}
+      </h3>
+    </div>
+    <div className="space-y-4">{children}</div>
+  </div>
+);
+
+const Divider = () => <div className="border-t border-slate-100" />;
+
+interface FieldProps {
+  label: string;
+  icon?: React.ReactNode;
+  required?: boolean;
+  optional?: boolean;
+  children: React.ReactNode;
+}
+
+const Field: React.FC<FieldProps> = ({
+  label,
+  icon,
+  required,
+  optional,
+  children,
 }) => (
   <label className="block">
-    <span className="block text-sm font-semibold text-slate-700 mb-1.5">
-      {label}
-      {required && <span className="text-red-500 ml-0.5">*</span>}
+    <span className="flex items-center justify-between mb-1.5 gap-3">
+      <span className="flex items-center gap-1.5 text-sm font-semibold text-slate-700 whitespace-nowrap">
+        {icon && <span className="text-slate-400">{icon}</span>}
+        {label}
+        {required && <span className="text-red-500">*</span>}
+      </span>
+      {optional && (
+        <span className="text-xs text-slate-400 font-normal">Optional</span>
+      )}
     </span>
     {children}
   </label>
+);
+
+const SuccessCard: React.FC<{ firstName: string; onReset: () => void }> = ({
+  firstName,
+  onReset,
+}) => (
+  <div className="bg-white rounded-2xl border border-slate-200/70 shadow-sm p-8 sm:p-12 text-center animate-fade-in">
+    <div className="w-16 h-16 mx-auto rounded-full bg-landco-security/15 text-landco-security flex items-center justify-center mb-5">
+      <Check className="w-8 h-8" strokeWidth={2.5} />
+    </div>
+    <h2 className="font-display font-black text-3xl sm:text-4xl text-slate-900 mb-3">
+      Enquiry received
+    </h2>
+    <p className="text-slate-600 leading-relaxed mb-2 max-w-md mx-auto">
+      Thanks {firstName || 'for getting in touch'} — we've got your message and a member
+      of the team will be in touch{' '}
+      <span className="font-semibold text-slate-900">within one working day</span>.
+    </p>
+    <p className="text-sm text-slate-500 mb-8">
+      In the meantime, feel free to browse our available sites.
+    </p>
+    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+      <Link
+        to="/sites"
+        className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-landco-yellow hover:bg-landco-yellowHover text-landco-dark font-bold transition-all shadow-sm hover:shadow-md"
+      >
+        Browse available sites <ArrowRight className="w-4 h-4" />
+      </Link>
+      <button
+        type="button"
+        onClick={onReset}
+        className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold transition-colors"
+      >
+        Send another enquiry
+      </button>
+    </div>
+  </div>
 );
 
 export default Enquire;
