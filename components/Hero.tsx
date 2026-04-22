@@ -89,7 +89,7 @@ export const Hero = () => {
               <Divider />
               <Stat number="4" label="Counties covered" />
               <Divider />
-              <Stat number="80k+" label="Sq ft available" />
+              <Stat number="500k+" label="Sq ft available" />
             </div>
           </div>
 
